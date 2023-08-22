@@ -171,7 +171,7 @@
             if( !firstTime ) 
             scrollDown(previousBottomEdge); 
 
-        }, 100);
+        }, 300);
             // Create paragraph with anchor element
             var choiceParagraphElement = document.createElement('p');
             choiceParagraphElement.classList.add("choice");
