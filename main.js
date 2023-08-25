@@ -160,7 +160,17 @@
 
         // Create HTML choices from ink choices
         story.currentChoices.forEach(function(choice) {
+	// Wrapping in a timer function to allow images to load before calculating & scrolling to the bottom of the page 
+        setTimeout(() => { 
+            // Extend height to fit 
+            // We do this manually so that removing elements and creating new ones doesn't 
+            // cause the height (and therefore scroll) to jump backwards temporarily. 
+            storyContainer.style.height = contentBottomEdgeY()+"px"; 
 
+            if( !firstTime ) 
+            scrollDown(previousBottomEdge); 
+
+        }, 700);
             // Create paragraph with anchor element
             var choiceParagraphElement = document.createElement('button');
             choiceParagraphElement.classList.add("choice");
