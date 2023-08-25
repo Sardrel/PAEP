@@ -108,7 +108,6 @@
                     delay += 200.0;
                 }
 
-
                 // LINK: url
                 else if( splitTag && splitTag.property == "LINK" ) {
                     window.location.href = splitTag.val;
@@ -161,19 +160,19 @@
 
         // Create HTML choices from ink choices
         story.currentChoices.forEach(function(choice) {
-		// Wrapping in a timer function to allow images to load before calculating & scrolling to the bottom of the page 
+	// Wrapping in a timer function to allow images to load before calculating & scrolling to the bottom of the page 
         setTimeout(() => { 
             // Extend height to fit 
             // We do this manually so that removing elements and creating new ones doesn't 
             // cause the height (and therefore scroll) to jump backwards temporarily. 
             storyContainer.style.height = contentBottomEdgeY()+"px"; 
-            
+
             if( !firstTime ) 
             scrollDown(previousBottomEdge); 
 
         }, 700);
             // Create paragraph with anchor element
-            var choiceParagraphElement = document.createElement('p');
+            var choiceParagraphElement = document.createElement('button');
             choiceParagraphElement.classList.add("choice");
             choiceParagraphElement.innerHTML = `<a href='#'>${choice.text}</a>`
             storyContainer.appendChild(choiceParagraphElement);
@@ -351,7 +350,8 @@
         let rewindEl = document.getElementById("rewind");
         if (rewindEl) rewindEl.addEventListener("click", function(event) {
             removeAll("p");
-            removeAll("img");
+            removeAll("img")
+			removeAll(".choice");
             setVisible(".header", false);
             restart();
         });
@@ -378,6 +378,7 @@
 
             removeAll("p");
             removeAll("img");
+			removeAll(".choice");
             try {
                 let savedState = window.localStorage.getItem('save-state');
                 if (savedState) story.state.LoadJson(savedState);
@@ -392,6 +393,13 @@
             document.body.classList.add("switched");
             document.body.classList.toggle("dark");
         });
+
+	let creditEl = document.getElementById("credits");
+	if (creditEl) creditEl.addEventListener("click", function(event){
+	removeAll("p");
+        removeAll("img");
+	     });
+
     }
 
 })(storyContent);
