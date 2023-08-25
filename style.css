@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,700|Quattrocento:700');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,700|Quattrocento:700|Bricolage+Grotesque:300');
 
 body {
     font-family: 'Open Sans', sans-serif;
     font-weight: lighter;
-    background: white;
+    background: #557D8B;
     overflow: hidden;
 }
 
@@ -11,10 +11,13 @@ body.switched {
     transition: color 0.6s, background-color 0.6s;
 }
 
-h1,
+h1 {
+	color:white;
+	text-align: center;
+}
 h2 {
     text-align: center;
-    font-family: "Quattrocento", Georgia, 'Times New Roman', Times, serif;
+    font-family: "Bricolage Grotesque", Georgia, 'Times New Roman', Times, serif;
     margin: 0;
     padding: 0;
 }
@@ -47,20 +50,20 @@ h2 {
 
 .written-in-ink {
     z-index: 3;
+	left: 62px;
     font-size: 9pt;
     font-family: sans-serif;
     text-align: center;
     font-weight: 700;
-    position: fixed;
+    position: relative;
     display: block;
     width: 100%;
-    background: white;
+    background: #557D8B;
     transition: color 0.6s, background 0.6s;
     margin: 0;
     padding-top: 6px;
-    padding-bottom: 6px;
+    padding-bottom: 20px;
     height: 14px;
-    top: 0;
 }
 
 /* 
@@ -92,37 +95,118 @@ h2 {
 }
 
 .container {
+	position: absolute;
     display: block;
-    max-width: 600px;
+    max-width: 1200px;
+	height:800px;
+	left: 400px;
     margin: 0 auto;
     padding: 20px;
     padding-top: 4em;
-    background: white;
+	padding-bottom: 4em;
+    background: #2F444C;
+
 }
 
 .switched .container {
-    transition: background-color 0.6s;
+    transition: background-color 1s;
 }
 
 p {
-    font-size: 13pt;
-    color: #888;
+    font-size: 16pt;
+    color: white;
     line-height: 1.7em;
     font-weight: lighter;
+	padding-left:64px;
+	padding-right:64px;
 }
 
 a {
     font-weight: 700;
-    color: #b97c2c;
+    color: white;
     font-family: sans-serif;
     transition: color 0.6s;
     text-decoration: none;
 }
 
-a:hover {
-    color: black;
-    transition: color 0.1s;
+.uibutton:hover{
+    border-width: 2px; 
+    border-color: black;      /* Background */
+    border-style: solid;
 }
+
+
+
+/* Everything left of the main view. */
+.leftbar{
+    width: 300px;
+    height: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    user-select: none;
+}
+
+/* Panel containing logo image and logo text. */
+.logopanel{
+    width: 300px;
+    height: 180px;
+}
+
+/* Image logo. */
+.logo{
+    width: 300px;
+    height: 170px;
+    position: absolute;
+    top: 10px;
+    left: 0px;
+}
+
+/* Text to the right of logo. */
+.logotext{
+    width: 200px;
+    height: 80px;
+    position: absolute;
+    top: 20px;
+    left: 100px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 30px;
+    font-family: "Fancy Titles";
+}
+
+/* Panel containing tab buttons. */
+.tabpanel{
+    width: 300px;
+    height: 480px;
+    margin-top: 5px;
+    text-align: center;
+	position:fixed;
+}	
+
+/* Tab button. */
+.tab{
+    width: 300px;
+    height: 64px;
+    margin-bottom: 15px;
+    border: 0px;
+    font-size: 30px;
+    color: white;               /* Text */
+    border-radius: 30px 30px 30px 30px;
+    background-color: #2F444C;  /* Main */
+    transition: background-color 0.6s ease;
+    position: relative; /* Enables blinking */
+	left: 40px;
+    overflow: hidden;
+}
+
+/* Tab button onhover. */
+.tab:hover{
+    border-width: 4px 0px 3px 0px;
+    border-color: white;        /* Text */
+    border-style: solid;
+}
+
 
 strong {
     color: black;
@@ -153,16 +237,35 @@ img {
   (Will always appear inside <p> element by default.)
 */
 .choice {
-    text-align: center;
+    position: relative;
+	width: 400px;
+	text-align: center;
     line-height: 1.7em;
+	margin: 12px 15px;
+	font-weight: normal;
+	font-size: 1rem;
+	background: #557D8B;
+	color: white;
+	padding: 15px;
+	left:125px;
+	
 }
 
 /* 
   Class applied to first choice
 */
 :not(.choice)+.choice {
-    padding-top: 1em;
+
 }
+.choice:hover{
+	border-style: solid;
+	border-width: 3px;
+	border-color: #218374;
+
+	background:#749BAA;
+	
+}
+
 
 /*
   Class applied to choice links
@@ -182,6 +285,30 @@ img {
     padding-top: 20px;
     padding-bottom: 20px;
 }
+/* Button panel containing the four buttons at the bottom left. */
+.buttonpanel{
+    width: 300px;
+    height: 120px;
+    margin-top: 15px;
+    text-align: center;
+	left: 32px;
+}
+/* One of the four buttons at the bottom left. */
+.uibutton{
+    width: 135px;
+    height: 35px;
+    margin-bottom: 5px;
+    border-radius: 30px;
+    background-color: #2F444C;  /* Main */
+    color: white;               /* Text */
+    border: 0px;
+    font-family: 'Interface';
+    font-size: 16px;
+    cursor: pointer;
+	left: 40px;
+	top: 550px;
+	position:relative;
+}
 
 #controls {
     z-index: 4;
@@ -190,9 +317,9 @@ img {
     padding-bottom: 6px;
     position: fixed;
     right: 14px;
-    top: 4px;
+    top: 0px;
     user-select: none;
-    background: white;
+    background: #557D8B;
     transition: color 0.6s, background 0.6s;
 }
 
@@ -260,3 +387,14 @@ body.dark {
 .dark #controls {
     background: black;
 }
+.dark choice {
+    text-align: center;
+    line-height: 1.7em;
+	border: 1px solid white;
+	border-radius: 8px;
+	margin: 10px 15px;
+	font-weight: normal;
+	font-size: 1rem;
+	background: transparent;
+	color: white;
+	padding: 15px;

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Pony Adventure v.01</title>
+    <title>Pony Quest</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -17,20 +17,49 @@
         <h3 class="written-in-ink"><a href="https://www.inklestudios.com/ink">WRITTEN IN INK</a></h3>
 
         <div id="controls" class="buttons">
-          <a id="rewind" title="Restart story from beginning">restart</a>
           <a id="save" title="Save progress">save</a>
           <a id="reload" title="Reload from save point">load</a>
           <a id="theme-switch" title="Switch theme">theme</a>
-		  <a class="Patreon" href="https://www.patreon.com/user?u=65513562">patreon</a>
         </div>
 
         <div id="story" class="container">
+		
+		
             <div class="header">
-                <h1>Pony Adventure v.01</h1>
+                <h1>Pony Adventure</h1>
                 <h2 class="byline"></h2>
             </div>
         </div>
-    </div>
+   <div class="leftbar">
+
+                <div class="logopanel">
+                    <img class="logo" alt="logo" src="IMAGE/MLP Symbol.png">
+                </div>
+
+                <div class="tabpanel">
+                    <button class="tab tabactive" id="scenetab">Scene</button>
+                    <button class="tab" id="statstab">Stats</button>
+                    <button class="tab" id="statustab">Status</button>
+                    <button class="tab" id="inventorytab">Inventory</button>
+					<button class="tab" id="spellstab">Spells</button>
+                    <button class="tab" id="savetab">Save</button>
+                    <button class="tab" id="loadtab">Load</button>
+                    <button class="tab" id="milestonestab" style="display:none;">Milestones</button>
+                </div>
+
+                <div class="buttonpanel">
+                   
+                    <a target="_blank" href="credits/index.html">
+                        <button class="uibutton" id="creditsbutton">Credits</button>
+                    </a>
+                    <a target="_blank" href="https://www.patreon.com/TinkeringTurian">
+                        <button class="uibutton" id="patreonbutton">Patreon</button>
+					</a>
+					<a  >
+					<button class="uibutton" id="rewind" title="Restart story from beginning">Restart</button>
+					</a>
+   </div>
+
     <script src="ink.js"></script>
     <script src="Pony Quest.js"></script>
     <script src="main.js"></script>
