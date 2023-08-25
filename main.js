@@ -2,7 +2,11 @@
 
     // Create ink story from the content using inkjs
     var story = new inkjs.Story(storyContent);
-
+	// Here's the function
+	story.BindExternalFunction ("get_name", () => {
+    // 'prompt' is a built-in Javascript method
+    return prompt("Welcome to Pony Adventure, your first step on your journey is answering the following question. What is your name?", "Anon");
+	});
     var savePoint = "";
 
     let savedTheme;
