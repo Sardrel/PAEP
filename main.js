@@ -388,6 +388,12 @@
             continueStory(true);
         });
 
+        let themeSwitchEl = document.getElementById("theme-switch");
+        if (themeSwitchEl) themeSwitchEl.addEventListener("click", function(event) {
+            document.body.classList.add("switched");
+            document.body.classList.toggle("dark");
+        });
+
 	let creditEl = document.getElementById("credits");
 	if (creditEl) creditEl.addEventListener("click", function(event){
 	removeAll("p");

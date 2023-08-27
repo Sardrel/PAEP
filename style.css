@@ -4,6 +4,7 @@ body {
     font-family: 'Open Sans', sans-serif;
     font-weight: lighter;
     overflow: hidden;
+	background-image:url("IMAGE/background1.png ");
 	background-size: cover;
     background-repeat: no-repeat;
 	min-height: 800px;
