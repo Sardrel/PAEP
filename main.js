@@ -37,7 +37,7 @@
 
     var storyContainer = document.querySelector('#story');
     var outerScrollContainer = document.querySelector('.outerContainer');
-
+	var bodyContainer = document.querySelector('body');
     // page features setup
     setupTheme(globalTagTheme);
     var hasSave = loadSavePoint();
@@ -120,7 +120,7 @@
 
                 // BACKGROUND: src
                 else if( splitTag && splitTag.property == "BACKGROUND" ) {
-                    outerScrollContainer.style.backgroundImage = 'url('+splitTag.val+')';
+                    bodyContainer.style.backgroundImage = 'url('+splitTag.val+')';
                 }
 
                 // CLASS: className
@@ -400,6 +400,7 @@
         removeAll("img");
 	     });
 
+	
     }
 
 })(storyContent);
