@@ -356,7 +356,7 @@
             restart();
         });
 
-        let saveEl = document.getElementById("save");
+        let saveEl = document.getElementById("savetab");
         if (saveEl) saveEl.addEventListener("click", function(event) {
             try {
                 window.localStorage.setItem('save-state', savePoint);
@@ -368,7 +368,7 @@
 
         });
 
-        let reloadEl = document.getElementById("reload");
+        let reloadEl = document.getElementById("loadtab");
         if (!hasSave) {
             reloadEl.setAttribute("disabled", "disabled");
         }
@@ -386,12 +386,6 @@
                 console.debug("Couldn't load save state");
             }
             continueStory(true);
-        });
-
-        let themeSwitchEl = document.getElementById("theme-switch");
-        if (themeSwitchEl) themeSwitchEl.addEventListener("click", function(event) {
-            document.body.classList.add("switched");
-            document.body.classList.toggle("dark");
         });
 
 	let creditEl = document.getElementById("credits");
