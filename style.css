@@ -192,7 +192,7 @@ a {
 .leftbar{
     width: 300px;
     height: 100%;
-    position: fixed;
+    position: sticky;
     left: 0;
     top: 0;
     user-select: none;
@@ -224,11 +224,12 @@ a {
 /* Panel containing tab buttons. */
 .tabpanel{
     width: 300px;
-    height: 480px;
+    height: 0px;
+	top: 250px;
     margin-top: 5px;
     text-align: center;
-	position:fixed;
-	bottom: 250px;
+	position: sticky;
+	bottom: 0px;
 }	
 
 /* Tab button. */
@@ -243,7 +244,8 @@ a {
     background-color: #2F444C;  /* Main */
     transition: background-color 0.6s ease;
     position: relative; /* Enables blinking */
-	left: 300px;
+	left: 65px;
+	bottom:60px;
     overflow: hidden;
 }
 
@@ -338,7 +340,10 @@ img {
     height: 120px;
     margin-top: 15px;
     text-align: center;
-	left: 32px;
+	left: 65px;
+	top: 750px;
+	bottom: 0px;
+	position: sticky;
 }
 /* One of the four buttons at the bottom left. */
 .uibutton{
@@ -352,9 +357,8 @@ img {
     font-family: 'Interface';
     font-size: 16px;
     cursor: pointer;
-	left: 300px;
-	top: 600px;
-	position:relative;
+	bottom:0px;
+	position: sticky;
 }
 
 #controls {
