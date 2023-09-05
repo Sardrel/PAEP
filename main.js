@@ -108,6 +108,15 @@
                     delay += 200.0;
                 }
 
+				// INPUT BAR: src
+                if( splitTag && splitTag.property == "INPUT" ) {
+                    var inputElement = document.createElement('input');
+                    inputElement.src = splitTag.val;
+                    storyContainer.appendChild(inputElement);
+
+                    showAfter(delay, inputElement);
+                    delay += 200.0;
+                }
                 // LINK: url
                 else if( splitTag && splitTag.property == "LINK" ) {
                     window.location.href = splitTag.val;
@@ -399,8 +408,71 @@
 	removeAll("p");
         removeAll("img");
 	     });
+	}
+	// Get references to the buttons using their IDs
+var btnShowPage1 = document.getElementById("scenetab");
+var btnShowPage2 = document.getElementById("statstab");
+var btnShowPage3 = document.getElementById("statustab");
+var btnShowPage4 = document.getElementById("inventorytab");
+var btnShowPage5 = document.getElementById("spellstab");
+var btnShowPage6 = document.getElementById("savetab");
+var btnShowPage7 = document.getElementById("loadtab");
 
-	
-    }
+// Get references to the page div elements using their IDs
+var page1 = document.getElementById("story");
+var page2 = document.getElementById("stats");
+var page3 = document.getElementById("status");
+var page4 = document.getElementById("inventory");
+var page5 = document.getElementById("spells");
+var page6 = document.getElementById("save");
+var page7 = document.getElementById("load");
+
+// Define event listeners and their corresponding actions
+btnShowPage1.addEventListener("click", function() {
+  hideAllPages();
+  page1.style.display = "block";
+});
+
+btnShowPage2.addEventListener("click", function() {
+  hideAllPages();
+  page2.style.display = "block";
+});
+
+btnShowPage3.addEventListener("click", function() {
+  hideAllPages();
+  page3.style.display = "block";
+  
+  btnShowPage4.addEventListener("click", function() {
+  hideAllPages();
+  page4.style.display = "block";
+});
+
+btnShowPage5.addEventListener("click", function() {
+  hideAllPages();
+  page5.style.display = "block";
+});
+
+btnShowPage6.addEventListener("click", function() {
+  hideAllPages();
+  page6.style.display = "block";
+  
+});
+btnShowPage7.addEventListener("click", function() {
+  hideAllPages();
+  page7.style.display = "block";
+  
+});
+});
+// Function to hide all page div elements
+function hideAllPages() {
+  page1.style.display = "none";
+  page2.style.display = "none";
+  page3.style.display = "none";
+  page4.style.display = "none";
+  page5.style.display = "none";
+  page6.style.display = "none";
+  page7.style.display = "none";
+};
+
 
 })(storyContent);
