@@ -178,6 +178,7 @@ a {
     font-family: sans-serif;
     transition: color 0.6s;
     text-decoration: none;
+    display: block;
 }
 
 .uibutton:hover{
