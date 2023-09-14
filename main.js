@@ -7,6 +7,7 @@
     // 'prompt' is a built-in Javascript method
     return prompt("Welcome to Pony Adventure, your first step on your journey is answering the following question. What is your name?", "Anon");
 	});
+
     var savePoint = "";
 
     let savedTheme;
@@ -410,69 +411,165 @@
 	     });
 	}
 	// Get references to the buttons using their IDs
-var btnShowPage1 = document.getElementById("scenetab");
-var btnShowPage2 = document.getElementById("statstab");
-var btnShowPage3 = document.getElementById("statustab");
-var btnShowPage4 = document.getElementById("inventorytab");
-var btnShowPage5 = document.getElementById("spellstab");
-var btnShowPage6 = document.getElementById("savetab");
-var btnShowPage7 = document.getElementById("loadtab");
+	var btnShowPage1 = document.getElementById("scenetab");
+	var btnShowPage2 = document.getElementById("statstab");
+	var btnShowPage3 = document.getElementById("statustab");
+	var btnShowPage4 = document.getElementById("inventorytab");
+	var btnShowPage5 = document.getElementById("spellstab");
+	var btnShowPage6 = document.getElementById("savetab");
+	var btnShowPage7 = document.getElementById("loadtab");
 
-// Get references to the page div elements using their IDs
-var page1 = document.getElementById("story");
-var page2 = document.getElementById("stats");
-var page3 = document.getElementById("status");
-var page4 = document.getElementById("inventory");
-var page5 = document.getElementById("spells");
-var page6 = document.getElementById("save");
-var page7 = document.getElementById("load");
+	// Get references to the page div elements using their IDs
+	var page1 = document.getElementById("story");
+	var page2 = document.getElementById("stats");
+	var page3 = document.getElementById("status");
+	var page4 = document.getElementById("inventory");
+	var page5 = document.getElementById("spells");
+	var page6 = document.getElementById("save");
+	var page7 = document.getElementById("load");
 
-// Define event listeners and their corresponding actions
-btnShowPage1.addEventListener("click", function() {
-  hideAllPages();
-  page1.style.display = "block";
-});
+	// Define event listeners and their corresponding actions
+	btnShowPage1.addEventListener("click", function() {
+	hideAllPages();
+	page1.style.display = "block";
+	});
 
-btnShowPage2.addEventListener("click", function() {
-  hideAllPages();
-  page2.style.display = "block";
-});
+	btnShowPage2.addEventListener("click", function() {
+	hideAllPages();
+	page2.style.display = "block";
+	});
 
-btnShowPage3.addEventListener("click", function() {
-  hideAllPages();
-  page3.style.display = "block";
+	btnShowPage3.addEventListener("click", function() {
+	hideAllPages();
+	page3.style.display = "block";
+	})
+	btnShowPage4.addEventListener("click", function() {
+	hideAllPages();
+	page4.style.display = "block";
+	});
+
+	btnShowPage5.addEventListener("click", function() {
+	hideAllPages();
+	page5.style.display = "block";
+	});
+
+	btnShowPage6.addEventListener("click", function() {
+	hideAllPages();
+	page6.style.display = "block";
   
-  btnShowPage4.addEventListener("click", function() {
-  hideAllPages();
-  page4.style.display = "block";
-});
-
-btnShowPage5.addEventListener("click", function() {
-  hideAllPages();
-  page5.style.display = "block";
-});
-
-btnShowPage6.addEventListener("click", function() {
-  hideAllPages();
-  page6.style.display = "block";
+	});
+	btnShowPage7.addEventListener("click", function() {
+	hideAllPages();
+	page7.style.display = "block";
   
-});
-btnShowPage7.addEventListener("click", function() {
-  hideAllPages();
-  page7.style.display = "block";
-  
-});
-});
-// Function to hide all page div elements
-function hideAllPages() {
-  page1.style.display = "none";
-  page2.style.display = "none";
-  page3.style.display = "none";
-  page4.style.display = "none";
-  page5.style.display = "none";
-  page6.style.display = "none";
-  page7.style.display = "none";
-};
+	});
 
+	// Function to hide all page div elements
+	function hideAllPages() {
+	page1.style.display = "none";
+	page2.style.display = "none";
+	page3.style.display = "none";
+	page4.style.display = "none";
+	page5.style.display = "none";
+	page6.style.display = "none";
+	page7.style.display = "none";
+	};
+	// Stats
+		story.ObserveVariable("strength", function(variableName, variableValue) {
+			document.getElementById("StrengthNum").innerText = variableValue
+			if (variableValue === 1) {document.getElementById("StrengthComment").innerText = "Morbidly Weak."}
+			else if (variableValue < 3) {document.getElementById("StrengthComment").innerText = "Watch out for strong winds."}
+			else if (variableValue < 5) {document.getElementById("StrengthComment").innerText = "Visibly weak."}
+			else if (variableValue < 7 ){document.getElementById("StrengthComment").innerText = "Not the strongest."}
+			else if (variableValue < 9 ){document.getElementById("StrengthComment").innerText = "Can make one cart trip."}
+			else if (variableValue < 11 ){document.getElementById("StrengthComment").innerText = "Average."}
+			else if (variableValue < 13 ){document.getElementById("StrengthComment").innerText= "Strong."}
+			else if (variableValue < 15 ){document.getElementById("StrengthComment").innerText = "Visibly toned."}
+			else if (variableValue < 17 ){document.getElementById("StrengthComment").innerText = "Muscular."}
+			else if (variableValue < 19 ){document.getElementById("StrengthComment").innerText = "Heavily Muscular"}
+			else if (variableValue === 20 ){document.getElementById("StrengthComment").innerText = "Pinnacle of brawn"}
 
+			});
+		story.ObserveVariable("dexterity", function(variableName, variableValue){
+			document.getElementById("DexterityNum").innerText = variableValue
+		if (variableValue === 1) {document.getElementById("DexterityComment").innerText = "Barely Mobile."}
+			else if (variableValue < 3) {document.getElementById("DexterityComment").innerText = "Painful Movement."}
+			else if (variableValue < 5) {document.getElementById("DexterityComment").innerText = "Difficulty Moving."}
+			else if (variableValue < 7 ){document.getElementById("DexterityComment").innerText = "Total Klutz."}
+			else if (variableValue < 9 ){document.getElementById("DexterityComment").innerText = "Somewhat Slow."}
+			else if (variableValue < 11 ){document.getElementById("DexterityComment").innerText = "Average."}
+			else if (variableValue < 13 ){document.getElementById("DexterityComment").innerText= "Quick."}
+			else if (variableValue < 15 ){document.getElementById("DexterityComment").innerText = "Nimble."}
+			else if (variableValue < 17 ){document.getElementById("DexterityComment").innerText = "Light on your feet."}
+			else if (variableValue < 19 ){document.getElementById("DexterityComment").innerText = "Graceful"}
+			else if (variableValue === 20 ){document.getElementById("DexterityComment").innerText = "Swift as a River"}
+		});
+		story.ObserveVariable("consitution", function(variableName, variableValue){
+			document.getElementById("ConstitutionNum").innerText = variableValue
+		if (variableValue === 1) {document.getElementById("ConstitutionComment").innerText = "Anemic."}
+			else if (variableValue < 3) {document.getElementById("ConstitutionComment").innerText = "Frail."}
+			else if (variableValue < 5) {document.getElementById("ConstitutionComment").innerText = "Brusied by a touch."}
+			else if (variableValue < 7 ){document.getElementById("ConstitutionComment").innerText = "Prone to Illness."}
+			else if (variableValue < 9 ){document.getElementById("ConstitutionComment").innerText = "Easily Winded."}
+			else if (variableValue < 11 ){document.getElementById("ConstitutionComment").innerText = "Average."}
+			else if (variableValue < 13 ){document.getElementById("ConstitutionComment").innerText= "Fortified."}
+			else if (variableValue < 15 ){document.getElementById("ConstitutionComment").innerText = "Peak Physique"}
+			else if (variableValue < 17 ){document.getElementById("ConstitutionComment").innerText = "Perfect Vitality."}
+			else if (variableValue < 19 ){document.getElementById("ConstitutionComment").innerText = "Never wears down."}
+			else if (variableValue === 20 ){document.getElementById("ConstitutionComment").innerText = "I can do this all day."}
+		});
+		story.ObserveVariable("intelligence", function(variableName, variableValue){
+			document.getElementById("IntelligenceNum").innerText = variableValue
+		if (variableValue === 1) {document.getElementById("IntelligenceComment").innerText = "Animalistic."}
+			else if (variableValue < 3) {document.getElementById("IntelligenceComment").innerText = "Rather Animalistic."}
+			else if (variableValue < 5) {document.getElementById("IntelligenceComment").innerText = "Limited Knowledge."}
+			else if (variableValue < 7 ){document.getElementById("IntelligenceComment").innerText = "Complete Ditz."}
+			else if (variableValue < 9 ){document.getElementById("IntelligenceComment").innerText = "Forgetful"}
+			else if (variableValue < 11 ){document.getElementById("IntelligenceComment").innerText = "Average."}
+			else if (variableValue < 13 ){document.getElementById("IntelligenceComment").innerText= "Logical"}
+			else if (variableValue < 15 ){document.getElementById("IntelligenceComment").innerText = "Fairly Intelligent"}
+			else if (variableValue < 17 ){document.getElementById("IntelligenceComment").innerText = "Very Intelligent."}
+			else if (variableValue < 19 ){document.getElementById("IntelligenceComment").innerText = "Smartest in the Room"}
+			else if (variableValue === 20 ){document.getElementById("IntelligenceComment").innerText = "Famous Genius"}
+		});
+		story.ObserveVariable("wisdom", function(variableName, variableValue){
+			document.getElementById("WisdomNum").innerText = variableValue
+		if (variableValue === 1) {document.getElementById("WisdomComment").innerText = "Barely Aware."}
+			else if (variableValue < 3) {document.getElementById("WisdomComment").innerText = "Oblivious"}
+			else if (variableValue < 5) {document.getElementById("WisdomComment").innerText = "No Forethought"}
+			else if (variableValue < 7 ){document.getElementById("WisdomComment").innerText = "No Common Sense"}
+			else if (variableValue < 9 ){document.getElementById("WisdomComment").innerText = "Unaware"}
+			else if (variableValue < 11 ){document.getElementById("WisdomComment").innerText = "Average."}
+			else if (variableValue < 13 ){document.getElementById("WisdomComment").innerText= "Insightful."}
+			else if (variableValue < 15 ){document.getElementById("WisdomComment").innerText = "Intuitive."}
+			else if (variableValue < 17 ){document.getElementById("WisdomComment").innerText = "Amazingly Perceptive."}
+			else if (variableValue < 19 ){document.getElementById("WisdomComment").innerText = "Source of Wisdom"}
+			else if (variableValue === 20 ){document.getElementById("WisdomComment").innerText = "Nearly Prescient"}
+		
+		});
+		story.ObserveVariable("charisma", function(variableName, variableValue){
+			document.getElementById("CharismaNum").innerText = variableValue
+		if (variableValue === 1) {document.getElementById("CharismaComment").innerText = "Repelling Presence."}
+			else if (variableValue < 3) {document.getElementById("CharismaComment").innerText = "Minimal Thought"}
+			else if (variableValue < 5) {document.getElementById("CharismaComment").innerText = "Unsociable"}
+			else if (variableValue < 7 ){document.getElementById("CharismaComment").innerText = "Uninteresting"}
+			else if (variableValue < 9 ){document.getElementById("CharismaComment").innerText = "Kinda a Bore"}
+			else if (variableValue < 11 ){document.getElementById("CharismaComment").innerText = "Average."}
+			else if (variableValue < 13 ){document.getElementById("CharismaComment").innerText= "Mildy Interesting."}
+			else if (variableValue < 15 ){document.getElementById("CharismaComment").innerText = "Popular."}
+			else if (variableValue < 17 ){document.getElementById("CharismaComment").innerText = "Quite Eloquent."}
+			else if (variableValue < 19 ){document.getElementById("CharismaComment").innerText = "Everyone's Friend"}
+			else if (variableValue === 20 ){document.getElementById("CharismaComment").innerText = "Renowned"}
+		});
+	//Status Bars
+	var currentHealth = 0;
+	var maxHealth = 0;
+		story.ObserveVariable("health", function(variableName, variableValue) {
+			 currentHealth = variableValue 
+			document.getElementById("healthNum").textContent = currentHealth 
+			});
+		story.ObserveVariable("maxHealth", function(variableName, variableValue) {
+			maxHealth = variableValue
+		
+			});
 })(storyContent);

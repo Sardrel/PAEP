@@ -1,5 +1,315 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,700|Quattrocento:700|Bricolage+Grotesque:300|Sedgwick+Ave+Display:400');
+/**
+* COLOR SCHEME
+* Background:   #191919     rgb(25, 25, 25)
+* Detail:       #005AA1     rgb(0, 90, 161)
+* Main:         #003C6C     rgb(0, 60, 108)
+* Text:         white       rgb(255, 255, 255)
+* Rare:         #FF6EC7     rgb(255, 110, 199)
+* Danger:       #BE2625     rgb(190, 38, 37)
+* Sneaky:       #C0C0C0     rgb(192,192,192)
+* Blood:        #AF111C     rgb(175, 17, 28)
+* Sanity:       #4B0082     rgb(75, 0, 130)
+* Energy:       #FFCC11     rgb(255, 204, 17)
+* Exertion:     #FF6EC7     rgb(255, 110, 199)
+**/
 
+/* General text */
+@font-face {
+    font-family: 'Body';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/selawkl.ttf') format('truetype');
+}
+
+
+/* Titles */
+@font-face {
+    font-family: 'Titles';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/selawk.ttf') format('truetype');
+}
+
+/* Speech */
+@font-face {
+    font-family: 'Speech';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/selawk.ttf') format('truetype');
+}
+
+/* Fancy titles */
+@font-face {
+    font-family: 'Fancy Titles';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Cinzel Decorative Regular'), local('CinzelDecorative-Regular'),
+        url('../fonts/cinzel-decorative-v5-latin-regular.woff2') format('woff2'),
+        url('../fonts/cinzel-decorative-v5-latin-regular.woff') format('woff');
+}
+
+/* Interface */
+@font-face {
+    font-family: 'Interface';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'),
+        url('../fonts/source-sans-pro-v10-latin-regular.woff2') format('woff2'),
+        url('../fonts/source-sans-pro-v10-latin-regular.woff') format('woff');
+}
+
+/* Inputs - Monospace */
+@font-face {
+    font-family: 'MonoInput';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Ubuntu Mono'), local('UbuntuMono-Regular'),
+        url('../fonts/ubuntu-mono-v6-latin-regular.woff2') format('woff2'),
+        url('../fonts/ubuntu-mono-v6-latin-regular.woff') format('woff');
+}
+
+html{
+    height: 100%;
+}
+
+body{
+    font-family: "Body";
+    margin: 0;
+    min-height: 800px;
+    min-width: 1200px;
+    background-color: #191919;             /* Background */
+}
+
+@media (min-width: 1210px) and (min-height: 810px) {
+    body {
+        overflow: hidden;
+    }
+}
+/* Main subtitles. */
+.subtitle{
+    font-size: 32px;
+	text-align:left;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px black; /* Text-shadow */
+}
+
+a{
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:link, a:visited{
+    color: white;               /* Text */
+}
+
+p, h1, h2, h3, h4, h5, h6{
+    margin: 0px;
+}
+
+button:focus, textarea:focus{
+    outline: 0;
+}
+
+/* Speech-color. */
+.blue{
+    font-family: "Speech";
+    color: #005AA1; /* Static */
+}
+
+/* Speech-color. */
+.cyan{
+    font-family: "Speech";
+    color: #00A2E8; /* Static */
+}
+
+/* Speech-color. */
+.greyishblue{
+    font-family: "Speech";
+    color: #5878A8; /* Static */
+}
+
+/* Speech-color. */
+.pink{
+    font-family: "Speech";
+    color: #FF6EC7; /* Static */
+}
+
+/* Speech-color. */
+.palepink{
+    font-family: "Speech";
+    color: #E4B1AB; /* Static */
+}
+
+/* Speech-color. */
+.purple{
+    font-family: "Speech";
+    color: #AC3BE4; /* Static */
+}
+
+/* Speech-color. */
+.yellow{
+    font-family: "Speech";
+    color: #C4BC1A; /* Static */
+}
+
+/* Speech-color. */
+.brightred{
+    font-family: "Speech";
+    color: #BE2625; /* Static */
+}
+
+/* Speech-color. */
+.red{
+    font-family: "Speech";
+    color: #AF111C; /* Static */
+}
+
+/* Speech-color. */
+.darkred{
+    font-family: "Speech";
+    color: #800000; /* Static */
+}
+
+/* Speech-color. */
+.pinkred{
+    font-family: "Speech";
+    color: #91273b; /* Static */
+}
+
+/* Speech-color. */
+.green{
+    font-family: "Speech";
+    color: #61B329; /* Static */
+}
+
+/* Speech-color. */
+.milgreen{
+    font-family: "Speech";
+    color: #669048; /* Static */
+}
+
+/* Speech-color. */
+.lightgreen{
+    font-family: "Speech";
+    color: #9BDB9C; /* Static */
+}
+
+/* Speech-color. */
+.white{
+    font-family: "Speech";
+    color: white; /* Static */
+}
+
+/* Speech-color. */
+.black{
+    font-family: "Speech";
+    color: #191919; /* Static */
+}
+
+/* Speech-color. */
+.brown{
+    font-family: "Speech";
+    color: #B47B2E; /* Static */
+}
+
+/* Speech-color. */
+.orange{
+    font-family: "Speech";
+    color:  #FF6600; /* Static*/
+}
+
+/* Used in theme transitions. */
+.themetransition{
+    transition: background-color 2.0s ease, border-color 2.0s ease, color 2.0s ease !important;
+}
+
+/* Used in scenes and throughout the project. */
+.bold{
+    font-weight: bold;
+}
+
+/* Used in scenes and throughout the project. */
+.italic {
+    font-style: italic;
+}
+
+/* Used in scenes and throughout the project. */
+.underline {
+    text-decoration: underline;
+}
+
+/* Used in scenes and throughout the project. */
+.strikethrough {
+    text-decoration: line-through;
+}
+
+/* Used in scenes and throughout the project. */
+.small {
+    font-size: 12px;
+}
+
+/* Used in scenes and throughout the project. */
+.big {
+    font-size: 20px;
+}
+
+/* Used in scenes and throughout the project. */
+.nomargin{
+    margin-bottom: 0px !important;
+}
+
+/* Used in stat changes and scenes. */
+.center{
+    text-align: center !important;
+}
+
+/* Various parts that are not yet done. */
+.todo{
+    color: red;
+    background-color: yellow;
+}
+/* Outer status tab healthbar. */
+.healthbar {
+    width: 794px;
+    height: 40px;
+    border-color: #191919;     /* Background */
+    border-width: 3px;
+    border-style: solid;
+    border-radius: 43px 0px 20px 0px;
+    overflow: hidden;
+
+}
+.healthbarnumber {
+	color:white;
+}
+/* Inner status tab healthbar. */
+.healthbarinner {
+    height: 100%;
+}
+.healhbarcomment {
+    width: 350px;
+    float: left;
+    text-align: left;
+}
+
+/* Status tab health. */
+.health {
+    background-color: #AF111C;      /* Blood */
+}
+
+/* Status tab Will. */
+.will {
+    background-color: #00A2E8;      /* Will */
+}
+
+.libido{
+	background-color: #FF6EC7;
+}
+.xp{
+	 background-color: #669048;      /* XP */
+}
 body {
     font-family: 'Open Sans', sans-serif;
     font-weight: lighter;
@@ -58,6 +368,55 @@ h2 {
 	top: 175px;
 text-shadow: 1px 1px 2px black;}
 
+/* Half of the main window. */
+.half{
+    width: 435px;
+    float: left;
+	
+}
+
+/* Left half of the main window, with right-padding. */
+.lefthalf{
+    width: 396px;
+    float: left;
+    padding-right: 4px;
+}
+
+/* Right half of the main window, with left-padding.*/
+.righthalf{
+    width: 396px;
+    float: right;
+    padding-left: 4px;
+}
+/* Stat name of the attributes on the stats tab. */
+.statname {
+    width: 80px;
+    float: left;
+	color:white;
+}
+
+/* Stat number of the attributes on the stats tab. */
+.statnumber {
+    width: 60px;
+    text-align: center;
+    float: left;
+	color:white;
+}
+
+/* Stat comment of the attributes on the stats tab. */
+.statcomment {
+    width: 260px;
+    float: left;
+}
+
+.statsTitle{
+	font-family: "Sedgwick Ave Display";
+    font-size: 50px;
+    text-align: center;
+    margin-bottom: 25px;
+    text-shadow: 1px 1px 2px black;
+	color:white;
+}
 /*
   Built-in class:
     # author: Name
@@ -187,8 +546,12 @@ a {
     border-style: solid;
 }
 
-
-
+.warningtext{
+    color: #BE2625;             /* Danger */
+}
+.sneakytext{
+    color: #C0C0C0;             /* Sneaky */ 
+}
 /* Everything left of the main view. */
 .leftbar{
     width: 300px;
@@ -281,7 +644,9 @@ img {
     opacity: 1.0;
     transition: opacity 1.0s;
 }
-
+.nomargin{
+    margin-bottom: 0px !important;
+}
 /*
   Class applied to all choices
   (Will always appear inside <p> element by default.)
