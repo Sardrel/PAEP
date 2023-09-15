@@ -562,14 +562,33 @@
 			else if (variableValue === 20 ){document.getElementById("CharismaComment").innerText = "Renowned"}
 		});
 	//Status Bars
-	var currentHealth = 0;
-	var maxHealth = 0;
-		story.ObserveVariable("health", function(variableName, variableValue) {
-			 currentHealth = variableValue 
-			document.getElementById("healthNum").textContent = currentHealth 
+		let currentHp = 0;
+		let maxHp = 0;
+		let currentWill = 0;
+		let maxWill = 0;
+		let currentLust =0;
+		let maxLust = 100;
+		let currentXp= 0;
+		let needXp= 0;
+		function percent(x,y){
+			return (x/y)*100;
+		};
+		story.ObserveVariable("health", function(variableName, newValue) {
+			currentHp = newValue;	
+			document.getElementById("healthNum").innerText = currentHp + " / "+ maxHp;
+			const healthPercent = percent(currentHp,maxHp);
+			document.getElementById("healthBar").style.width = `${healthPercent}%`;
+		});
+		story.ObserveVariable("maxHealth", function(variableName, newValue) {
+			maxHp = newValue;
+		});
+		story.ObserveVariable("xp", function(variableName, newValue) {
+			currentXp = newValue;
+			document.getElementById("xpNum").innerText = currentXp + " / "+ needXp;
+			const xpPercent = percent(currentXp,needXp);
+			document.getElementById("xpBar").style.width = `${xpPercent}%`;
 			});
-		story.ObserveVariable("maxHealth", function(variableName, variableValue) {
-			maxHealth = variableValue
-		
+		story.ObserveVariable("needxp", function(variableName, newValue) {
+			needXp = newValue;
 			});
 })(storyContent);
