@@ -1,0 +1,835 @@
+/* General text */
+@font-face {
+    font-family: 'Body';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/selawkl.ttf') format('truetype');
+}
+
+/* Titles */
+@font-face {
+    font-family: 'Titles';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/selawk.ttf') format('truetype');
+}
+
+/* Speech */
+@font-face {
+    font-family: 'Speech';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/selawk.ttf') format('truetype');
+}
+
+/* Inputs - Monospace */
+@font-face {
+    font-family: 'MonoInput';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Ubuntu Mono'), local('UbuntuMono-Regular'),
+        url('../fonts/ubuntu-mono-v6-latin-regular.woff2') format('woff2'),
+        url('../fonts/ubuntu-mono-v6-latin-regular.woff') format('woff');
+}
+
+html{
+    height: 100%;
+}
+
+body{
+    height: 100%;
+    margin: 0;
+    min-width: 1200px;
+    background-color: #191919;
+    color: white;
+	background-image:url("background2.jpg ");
+	background-size: cover;
+    background-repeat: no-repeat;
+	overflow: hidden;
+}
+
+a{
+    text-decoration: none;
+}
+
+a:link, a:visited{
+    color: white;
+}
+
+p, h1, h2, h3, h4, h5, h6{
+    margin: 0px;
+}
+
+button:focus{
+    outline: 0;
+}
+
+.warningtext{
+    color: #BE2625;             /* Danger */
+}
+
+.sneakytext{
+    color: #C0C0C0;             /* Sneaky */ 
+}
+
+.bold{
+    font-weight: bold;
+}
+
+.italic{
+    font-style: italic;
+}
+
+.strikethrough {
+    text-decoration: line-through;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.whitebg{
+    background-color: white;
+}
+
+.centered{
+    text-align: center;
+}
+
+.small {
+    font-size: 12px;
+}
+
+.big {
+    font-size: 20px;
+}
+
+.code{
+    font-family: "MonoInput";
+}
+
+.codehtmltag{
+    color: #FF7256;
+}
+
+.codehtmlattribute{
+    color: #FFE600;
+}
+
+.codevarkeyword{
+    color: #BF5FFF;
+}
+
+.codevar{
+    color: #FFE600;
+}
+
+.codefunction{
+    color: #FF7256;
+}
+
+.codestring{
+    color: #EE9A49
+}
+
+.codecomment{
+    color: #66CD00;
+
+}
+
+/* Speech-color. */
+.blue{
+    font-family: "Speech";
+    color: #557D8B; /* Static */
+}
+
+/* Speech-color. */
+.cyan{
+    font-family: "Speech";
+    color: #00A2E8; /* Static */
+}
+
+/* Speech-color. */
+.greyishblue{
+    font-family: "Speech";
+    color: #5878A8; /* Static */
+}
+
+/* Speech-color. */
+.pink{
+    font-family: "Speech";
+    color: #FF6EC7; /* Static */
+}
+
+/* Speech-color. */
+.palepink{
+    font-family: "Speech";
+    color: #E4B1AB; /* Static */
+}
+
+/* Speech-color. */
+.purple{
+    font-family: "Speech";
+    color: #AC3BE4; /* Static */
+}
+
+/* Speech-color. */
+.yellow{
+    font-family: "Speech";
+    color: #C4BC1A; /* Static */
+}
+
+/* Speech-color. */
+.brightred{
+    font-family: "Speech";
+    color: #BE2625; /* Static */
+}
+
+/* Speech-color. */
+.red{
+    font-family: "Speech";
+    color: #AF111C; /* Static */
+}
+
+/* Speech-color. */
+.darkred{
+    font-family: "Speech";
+    color: #800000; /* Static */
+}
+
+/* Speech-color. */
+.pinkred{
+    font-family: "Speech";
+    color: #91273b; /* Static */
+}
+
+
+/* Speech-color. */
+.green{
+    font-family: "Speech";
+    color: #61B329; /* Static */
+}
+
+/* Speech-color. */
+.milgreen{
+    font-family: "Speech";
+    color: #669048; /* Static */
+}
+
+/* Speech-color. */
+.brown{
+    font-family: "Speech";
+    color: #B47B2E; /* Static */
+}
+
+/* Speech-color. */
+.white{
+    font-family: "Speech";
+    color: white; /* Static */
+}
+
+/* Speech-color. */
+.black{
+    font-family: "Speech";
+    color: #191919; /* Static */
+}
+
+/* Speech-color. */
+.orange{
+    font-family: "Speech";
+    color:  #FF6600; /* Static*/
+}
+
+.todo{
+    color: red !important;
+    background-color: yellow !important;
+    font-weight: bold;
+}
+
+.creditspage{
+    font-family: 'Body';
+    width: 1200px;
+    margin: auto;
+    margin-bottom: 50px;
+    margin-top: 50px;
+    background-color: #2F444C;
+    border: 10px solid #557D8B;
+    padding-bottom: 50px;
+
+}
+
+.title{
+    font-family: 'Titles';
+    font-size: 50px;
+    text-align: center;
+}
+
+.subtitle{
+    font-size: 24px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.subsubtitle{
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.subsubsubtitle{
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.titleline{
+    border: 0px;
+    background-color: #557D8B;
+    height: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.contentseparator{
+    border: 0px;
+    background-color: #557D8B;
+    height: 2px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.scrollcontainer{
+	height: 800px;
+    width: 1210px;
+	overflow: auto;
+}
+.main{
+    margin: auto;
+    width: 1050px;
+}
+
+.text{
+    font-size: 16px;
+    text-align: justify;
+    margin-bottom: 5px;
+}
+
+.summation{
+    font-size: 16px;
+}
+
+code{
+    background-color: #557D8B;
+}
+
+.lineofcode{
+    font-size: 16px;
+    margin-top: 10px;
+    margin-bottom: 8px;
+}
+
+.codeblock{
+    font-size: 16px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #557D8B;
+}
+
+.half{
+    width: 50%;
+    float: left;
+}
+
+.button{
+    height: 35px;
+    margin-bottom: 5px;
+    background-color: #557D8B;
+    color: white;
+    border: 2px;
+    border-color: transparent;
+    border-style: solid;
+    font-family: 'Body';
+    font-size: 16px;
+}
+
+.button:hover{
+    border: 2px #191919 solid;
+}
+
+.button:active{
+    background-color: #191919;
+}
+
+.button:disabled{
+    background-color: #191919;
+}
+
+.table{
+    background-color: #191919;
+    border: 4px solid #557D8B;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+.tablecentercolumn{
+    width: 400px;
+}
+
+.table th{
+    font-weight: bold;
+    border: 2px solid #557D8B;
+    border-bottom: 4px solid #557D8B;
+    font-size: 20px;
+    padding: 5px;
+}
+
+.tablenewsection{
+    border-top: 4px solid #557D8B;
+}
+
+.table td{
+    border: 2px solid #557D8B;
+    padding: 5px;
+}
+
+.donators{
+    margin-top: 20px;
+    overflow: auto;
+    width: 1020px;
+    margin-bottom: 40px;
+}
+
+.donator{
+    width: 200px;
+    float: left;
+    border: 2px solid #557D8B;
+    background-color: #191919;
+    transition: 0.2s all ease;
+}
+
+.citizen:hover{
+    border-color: white;
+}
+
+.soldier:hover{
+    border-color: white;
+}
+
+.adventurer:hover{
+    border-color: #FFD700;
+}
+
+.guildleader:hover{
+    border-color: #E6192A;
+}
+
+.noble:hover{
+    border-color: #C10DFF;
+}
+
+.baron:hover{
+    border-color: #8F3413;
+}
+
+.avatar{
+    width: 200px;
+    height: 200px;
+}
+
+.donator .name{
+    height: 47px;
+    text-align: center;
+    line-height: 47px;
+}
+
+.donators .citizen .name{
+    height: 47px;
+    line-height: 47px;
+}
+
+.creator .name {
+    height: 30px;
+    line-height: 30px;
+}
+
+.creator .description {
+    font-size: 14px;
+    height: 30px;
+    line-height: 20px;
+    text-align: center;
+}
+
+.creator:hover{
+    border-color: black;
+}
+
+/* Fanart images. */
+.fanart {
+    max-width: 800px;
+    max-height: 450px;
+    margin-bottom: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 80px;
+    height: 34px;
+    margin-left: 20px;
+    margin-right: 20px;
+    vertical-align: middle;
+}
+
+/* Text alongside the switch. */
+.switchtext {
+    line-height: 34px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* A settings input line. */
+.settingline {
+    float: left;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+/* Left part of a switch-line. */
+.switchleft {
+    text-align: right;
+    width: 44%;
+    float: left;
+}
+
+/* Center part of a switch-line (the switch itself). */
+.switchcenter {
+    text-align: center;
+    width: 12%;
+    float: left;
+}
+
+/* Right part of a switch-line. */
+.switchright {
+    text-align: left;
+    width: 44%;
+    float: left;
+}
+
+/* Left part of a switch-line. */
+.rangeleft {
+    text-align: right;
+    width: 33%;
+    float: left;
+}
+
+/* Center part of a range-line (the range itself). */
+.rangecenter {
+    text-align: center;
+    width: 34%;
+    float: left;
+    padding-top: 2px;
+}
+
+/* Right part of a range-line. */
+.rangeright {
+    text-align: left;
+    width: 33%;
+    float: left;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    display:none;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: .4s;
+    background-color: #191919;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #557D8B;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #557D8B;
+}
+
+input:checked + .slider:before {
+    transform: translateX(46px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* Volume sliders */
+.rangeinput {
+    -webkit-appearance: none;
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 300px;
+    background-color: transparent;
+}
+.rangeinput:focus {
+    outline: none;
+}
+.rangeinput::-webkit-slider-runnable-track {
+    width: 300px;
+    height: 20px;
+    cursor: pointer;
+    background: #557D8B;
+    border-radius: 10px;
+}
+.rangeinput::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 30px;
+    width: 30px;
+    border-radius: 30px;
+    background-color: white;
+    cursor: pointer;
+    margin-top: -5px;
+}
+.rangeinput:focus::-webkit-slider-runnable-track {
+    background: #557D8B;
+}
+.rangeinput::-moz-range-track {
+    width: 300px;
+    height: 20px;
+    cursor: pointer;
+    background: #557D8B;
+    border-radius: 10px;
+}
+.rangeinput::-moz-range-thumb {
+    height: 30px;
+    width: 30px;
+    border-radius: 30px;
+    background-color: white;
+    cursor: pointer;
+    margin-top: -5px;
+}
+.rangeinput::-ms-track {
+    width: 300px;
+    height: 20px;
+    cursor: pointer;
+    background: #557D8B;
+    border-radius: 10px;
+}
+
+.rangeinput::-ms-thumb {
+    height: 30px;
+    width: 30px;
+    border-radius: 30px;
+    background-color: white;
+    cursor: pointer;
+    margin-top: -5px;
+}
+
+/* Color inputs */
+.colorinput {
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+/* Dropdown boxes */
+select {
+    background-color: #557D8B;
+    color: white;
+}
+
+/* Finishers used in every scene and throughout the project. */
+.finish{
+    height: 100px;
+    width: 700px;
+}
+
+/* Character sheet images. */
+.charsheet{
+    margin-top: 30px;
+    margin-left: -100px;
+    width: 1200px;
+}
+
+/* Wrapper for the SFW / NSFW selector on the character sheet page. */
+.charsheettoggle{
+    float: right;
+    margin-top: -40px;
+}
+
+/* All three components of the SFW / NSFW selector on the character sheet page. */
+.charsheettogglecomponent{
+    float: left;
+    line-height: 27px;
+    font-size: 14px;
+}
+
+/* Switch of the SFW / NSFW selector on the character sheet page. */
+.charsheettoggleswitch {
+    position: relative;
+    display: inline-block;
+    width: 45px;
+    height: 22px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 3px;
+}
+
+/* The slider of the SFW / NSFW selector on the character sheet page. */
+.charsheettoggleslider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: .4s;
+    background-color: #191919;
+}
+
+/* The slider of the SFW / NSFW selector on the character sheet page. */
+.charsheettoggleslider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+}
+
+/* Hide default HTML checkbox of the SFW / NSFW selector on the character sheet page. */
+.charsheettoggleswitch input {
+    display:none;
+}
+
+/* Change the color of the slider of the SFW / NSFW selector on the character sheet page. */
+input:checked + .charsheettoggleslider {
+    background-color: #557D8B;
+}
+
+/* Change the color of the slider of the SFW / NSFW selector on the character sheet page. */
+input:focus + .charsheettoggleslider {
+    box-shadow: 0 0 1px #557D8B;
+}
+
+/* Move the slider of the SFW / NSFW selector on the character sheet page. */
+input:checked + .charsheettoggleslider:before {
+    transform: translateX(23px);
+}
+
+/* Rounded sliders for the SFW / NSFW selector on the character sheet page. */
+.charsheettoggleslider.round {
+    border-radius: 100%;
+}
+
+/* Rounded sliders for the SFW / NSFW selector on the character sheet page. */
+.charsheettoggleslider.round:before {
+    border-radius: 50%;
+}
+.volume-control {
+    margin: 20px;
+	bottom:20px;
+	position: sticky;
+}
+.playbutton{
+    margin: 20px;
+	bottom:-20px;
+	left: 30px;
+	position: absolute;
+}
+
+#volumeButton {
+	box-sizing: border-box;
+	width: 40px;
+    height: 40px;
+    margin-bottom: 5px;
+    background-color: #2F444C;  /* Main */
+    color: white;               /* Text */
+    border: 0px;
+    font-family: 'Interface';
+    font-size: 16px;
+    cursor: pointer;
+	bottom:0px;
+	left: 0px;
+	
+}
+#playButton {
+	box-sizing: border-box;
+	width: 40px;
+    height: 40px;
+    margin-bottom: 5px;
+    background-color: #2F444C;  /* Main */
+    color: white;               /* Text */
+    border: 0px;
+    font-family: 'Interface';
+    font-size: 16px;
+    cursor: pointer;
+	bottom:0px;
+	left: 300px;
+	
+}
+button img {
+    width: 35px;  /* Set the width */
+    height: 35px; /* Set the height */
+    display: block;
+}
+#volumeSlider {
+    position: absolute;
+    bottom: 133px;
+    transform: rotate(-90deg);
+    width: 200px;
+    left: -83px;
+}
+/* The scrollbar of the main container. */
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #2F444C; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #557D8B; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #557D8B;
+}  

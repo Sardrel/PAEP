@@ -95,6 +95,7 @@
                     this.audioLoop.load();
                   }
                   this.audioLoop = new Audio(splitTag.val);
+				  this.audioLoop.volume = 0.5
                   this.audioLoop.play();
                   this.audioLoop.loop = true;
                 }
@@ -366,37 +367,155 @@
             restart();
         });
 
-        let saveEl = document.getElementById("savetab");
-        if (saveEl) saveEl.addEventListener("click", function(event) {
-            try {
-                window.localStorage.setItem('save-state', savePoint);
-                document.getElementById("reload").removeAttribute("disabled");
-                window.localStorage.setItem('theme', document.body.classList.contains("dark") ? "dark" : "");
-            } catch (e) {
-                console.warn("Couldn't save state");
-            }
 
-        });
+function saveGameSlot(slotIndex) {
+    try {
+        let savedSlots = JSON.parse(window.localStorage.getItem('save-slots')) || [];
 
-        let reloadEl = document.getElementById("loadtab");
-        if (!hasSave) {
-            reloadEl.setAttribute("disabled", "disabled");
+        // Assuming story.state.SaveJson is a function to get the serialized state
+        let currentState = story.state.toJson();
+
+        // Update or add the saved state to the specified slot
+        savedSlots[slotIndex] = currentState;
+
+        // Save the updated slots array back to local storage
+        window.localStorage.setItem('save-slots', JSON.stringify(savedSlots));
+
+        // Enable the load button assuming you want to enable it after a save
+        document.getElementById("loadtab").removeAttribute("disabled");
+
+        console.log(`Game saved to Slot ${slotIndex + 1}`);
+    } catch (e) {
+        console.debug("Couldn't save game state");
+    }
+}
+
+
+function loadSaveSlot(slotIndex) {
+    let reloadEl = document.getElementById("loadbutton");
+    
+    // Assuming hasSave is a boolean indicating whether there is a save in the specified slot
+    if (!hasSave(slotIndex)) {
+        reloadEl.setAttribute("disabled", "disabled");
+    }
+
+    reloadEl.addEventListener("click", function(event) {
+        if (reloadEl.getAttribute("disabled")) {
+            return;
         }
-        reloadEl.addEventListener("click", function(event) {
-            if (reloadEl.getAttribute("disabled"))
-                return;
 
-            removeAll("p");
-            removeAll("img");
-			removeAll(".choice");
-            try {
-                let savedState = window.localStorage.getItem('save-state');
-                if (savedState) story.state.LoadJson(savedState);
-            } catch (e) {
-                console.debug("Couldn't load save state");
+        removeAll("p");
+        removeAll("img");
+        removeAll(".choice");
+
+        try {
+            let savedSlots = JSON.parse(window.localStorage.getItem('save-slots')) || [];
+
+            if (slotIndex >= 0 && slotIndex < savedSlots.length) {
+                let savedState = savedSlots[slotIndex];
+                // Assuming story.state.LoadJson is a function to load the state
+                story.state.LoadJson(savedState);
             }
-            continueStory(true);
+        } catch (e) {
+            console.debug("Couldn't load save state");
+        }
+
+        // Assuming continueStory is a function to continue the story/game
+        continueStory(true);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    const saveSlotsContainer = document.getElementById("saveSlotsContainer");
+    const saveButton = document.getElementById("saveButton");
+    const loadButton = document.getElementById("loadButton");
+    const textContainer = document.getElementById("story"); // Assuming you have a container with ID "textContainer"
+
+    saveButton.addEventListener("click", function () {
+        // Replace 0 with the desired slot index
+        saveGameSlot(0);
+        renderSaveSlots();
+    });
+
+    loadButton.addEventListener("click", function () {
+        // Replace 0 with the desired slot index
+        loadSaveSlot(0);
+        loadTextContent(0); // Load text content as well
+    });
+
+    // Function to render save slots
+    function renderSaveSlots() {
+        saveSlotsContainer.innerHTML = ""; // Clear previous slots
+
+        let savedSlots = JSON.parse(window.localStorage.getItem('save-slots')) || [];
+
+        savedSlots.forEach((save, index) => {
+            const saveSlot = document.createElement("div");
+            saveSlot.classList.add("save-slot");
+            saveSlot.textContent = `Save Slot ${index + 1}`;
+
+            // Add click event to load the selected save
+            saveSlot.addEventListener("click", () => {
+                loadSaveSlot(index);
+                loadTextContent(index); // Load text content as well
+            });
+
+            saveSlotsContainer.appendChild(saveSlot);
         });
+    }
+
+    // Function to save the game into a specific slot
+    function saveGameSlot(slotIndex) {
+        try {
+            let savedSlots = JSON.parse(window.localStorage.getItem('save-slots')) || [];
+            let currentState = story.state.toJson(); // Replace with your actual method to get the serialized state
+
+            savedSlots[slotIndex] = currentState;
+            window.localStorage.setItem('save-slots', JSON.stringify(savedSlots));
+
+            console.log(`Game saved to Slot ${slotIndex + 1}`);
+        } catch (e) {
+            console.debug("Couldn't save game state");
+        }
+    }
+
+    // Function to load the game from a specific save slot
+    function loadSaveSlot(slotIndex) {
+        try {
+            let savedSlots = JSON.parse(window.localStorage.getItem('save-slots')) || [];
+
+            if (slotIndex >= 0 && slotIndex < savedSlots.length) {
+                let savedState = savedSlots[slotIndex];
+                // Replace the following line with your actual method to load the game state
+                console.log(`Loading game from Save Slot ${slotIndex + 1} - State: ${savedState}`);
+            }
+        } catch (e) {
+            console.debug("Couldn't load save state");
+        }
+    }
+
+    // Function to load text content from a specific save slot
+    function loadTextContent(slotIndex) {
+        try {
+            let savedSlots = JSON.parse(window.localStorage.getItem('save-slots')) || [];
+
+            if (slotIndex >= 0 && slotIndex < savedSlots.length) {
+                let textContent = savedSlots[slotIndex].textContent;
+
+                // Replace the following line with your actual method to set the text content
+                textContainer.textContent = textContent;
+                console.log(`Text content loaded from Save Slot ${slotIndex + 1}`);
+            }
+        } catch (e) {
+            console.debug("Couldn't load text content");
+        }
+    }
+
+    // Render initial save slots
+    renderSaveSlots();
+});
+
+
 
         let themeSwitchEl = document.getElementById("theme-switch");
         if (themeSwitchEl) themeSwitchEl.addEventListener("click", function(event) {
@@ -404,11 +523,7 @@
             document.body.classList.toggle("dark");
         });
 
-	let creditEl = document.getElementById("credits");
-	if (creditEl) creditEl.addEventListener("click", function(event){
-	removeAll("p");
-        removeAll("img");
-	     });
+	
 	}
 	// Get references to the buttons using their IDs
 	var btnShowPage1 = document.getElementById("scenetab");
@@ -417,7 +532,6 @@
 	var btnShowPage4 = document.getElementById("inventorytab");
 	var btnShowPage5 = document.getElementById("spellstab");
 	var btnShowPage6 = document.getElementById("savetab");
-	var btnShowPage7 = document.getElementById("loadtab");
 
 	// Get references to the page div elements using their IDs
 	var page1 = document.getElementById("story");
@@ -426,7 +540,7 @@
 	var page4 = document.getElementById("inventory");
 	var page5 = document.getElementById("spells");
 	var page6 = document.getElementById("save");
-	var page7 = document.getElementById("load");
+
 
 	// Define event listeners and their corresponding actions
 	btnShowPage1.addEventListener("click", function() {
@@ -457,11 +571,7 @@
 	hideAllPages();
 	page6.style.display = "block";
   
-	});
-	btnShowPage7.addEventListener("click", function() {
-	hideAllPages();
-	page7.style.display = "block";
-  
+
 	});
 
 	// Function to hide all page div elements
@@ -472,8 +582,8 @@
 	page4.style.display = "none";
 	page5.style.display = "none";
 	page6.style.display = "none";
-	page7.style.display = "none";
 	};
+	
 	// Stats
 		story.ObserveVariable("strength", function(variableName, variableValue) {
 			document.getElementById("StrengthNum").innerText = variableValue
@@ -529,7 +639,7 @@
 			else if (variableValue < 13 ){document.getElementById("IntelligenceComment").innerText= "Logical"}
 			else if (variableValue < 15 ){document.getElementById("IntelligenceComment").innerText = "Fairly Intelligent"}
 			else if (variableValue < 17 ){document.getElementById("IntelligenceComment").innerText = "Very Intelligent."}
-			else if (variableValue < 19 ){document.getElementById("IntelligenceComment").innerText = "Smartest in the Room"}
+			else if (variableValue < 19 ){document.getElementById("IntelligenceComment").innerText = "Smartest in the Room"}		
 			else if (variableValue === 20 ){document.getElementById("IntelligenceComment").innerText = "Famous Genius"}
 		});
 		story.ObserveVariable("wisdom", function(variableName, variableValue){
@@ -573,6 +683,8 @@
 		function percent(x,y){
 			return (x/y)*100;
 		};
+		
+		 
 		story.ObserveVariable("health", function(variableName, newValue) {
 			currentHp = newValue;	
 			document.getElementById("healthNum").innerText = currentHp + " / "+ maxHp;
@@ -591,4 +703,177 @@
 		story.ObserveVariable("needxp", function(variableName, newValue) {
 			needXp = newValue;
 			});
+			
+	document.getElementById('volumeButton').addEventListener('click', function() {
+    var slider = document.getElementById('volumeSlider');
+    slider.style.display = slider.style.display === 'none' ? 'block' : 'none';
+});
+
+	document.getElementById('volumeSlider').addEventListener('input', function(e) {
+    var volume = e.target.value;
+    document.getElementById('myAudio').volume = volume;
+    console.log("Volume set to: " + volume);
+});
+   var isImageOne = true;
+	document.getElementById('myAudio').volume = 0.15; // 50% volume
+    document.getElementById('playButton').addEventListener('click', function() {
+		var audio = document.getElementById('myAudio')
+		  if (audio.paused) {
+            audio.play();
+        } else {
+            audio.pause(); // Optional: Restart the song if already playing
+        }
+        if (isImageOne) {
+            document.getElementById('buttonImage').src = 'IMAGE/Icon/Pause Button.gif';
+        } else {
+            document.getElementById('buttonImage').src = 'IMAGE/Icon/Play Button.gif';
+        }
+	
+        isImageOne = !isImageOne; // Toggle the flag
+    });
+
+
+  let allowClick = true; // Flag to control whether clicks are allowed
+
+  function shuffle(array) {
+    let currentIndex = array.length, randomIndex;
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    }
+
+    return array;
+  }
+
+  function createCardImagesArray() {
+    const images = [
+      'IMAGE/Flipgame/Divination.png',
+      'IMAGE/Flipgame/Abjuration.png',
+      'IMAGE/Flipgame/Enchantment.png',
+      'IMAGE/Flipgame/Necromancy.png',
+      'IMAGE/Flipgame/Illusion.png',
+      'IMAGE/Flipgame/Conjuration.png',
+      'IMAGE/Flipgame/Evocation.png',
+      'IMAGE/Flipgame/Transmutation.png'
+    ];
+    return [...images, ...images];
+  }
+
+  function initializeGame() {
+    const cardImages = shuffle(createCardImagesArray());
+    const gameBoard = document.getElementById('game-board');
+
+    cardImages.forEach(image => {
+      const card = document.createElement('div');
+      card.classList.add('card');
+      card.style.backgroundImage = `url('IMAGE/Flipgame/blank.png')`;
+      card.setAttribute('data-image', image); // Store the image path as a data attribute
+      card.addEventListener('click', handleCardClick);
+      gameBoard.appendChild(card);
+    });
+  }
+
+  function handleCardClick() {
+    // Check if clicking is allowed
+    if (!allowClick || this.classList.contains('selected')) {
+      return;
+    }
+
+    this.classList.add('selected');
+    this.style.backgroundImage = `url(${this.getAttribute('data-image')})`; // Reveal the image
+
+    const selectedCards = document.querySelectorAll('.card.selected');
+
+    if (selectedCards.length === 2) {
+      allowClick = false; // Disable clicking while checking for a match
+      setTimeout(() => {
+        checkMatch();
+        allowClick = true; // Re-enable clicking after checking for a match
+      }, 1000);
+    }
+  }
+
+	
+  function checkMatch() {
+    const selectedCards = document.querySelectorAll('.card.selected');
+
+    if (selectedCards.length === 2) {
+      const [firstCard, secondCard] = selectedCards;
+
+      if (firstCard.getAttribute('data-image') === secondCard.getAttribute('data-image')) {
+        // Hide the matching cards
+        selectedCards.forEach(card => {
+          card.classList.add('hidden');
+          card.classList.remove('selected');
+        });
+
+        // Check if all cards are hidden
+        if (document.querySelectorAll('.card.hidden').length === selectedCards.length * 8) {
+          alert('Congratulations! Memory game solved.');
+          // Perform additional actions or trigger events here
+        } else {
+					healDamage(1);
+        }
+      } else {
+        // Reset the non-matching cards to the blank image
+		  console.log("Current Health: " + story.variablesState["health"]);
+		 dealDamage(1);
+		  console.log("Current Health: " + story.variablesState["health"]);
+        selectedCards.forEach(card => {
+          card.classList.remove('selected');
+          card.style.backgroundImage = 'url(IMAGE/Flipgame/blank.png)';
+
+        });
+      }
+    }
+  }
+
+function dealDamage(x){
+		 story.variablesState["health"] -= x;
+	}
+function healDamage(x) {
+  story.variablesState["health"] += x;
+  
+  // Check if health exceeds maxHp and reset to maxHp if necessary
+  if (story.variablesState["health"] > story.variablesState["maxHealth"]) {
+    story.variablesState["health"] = story.variablesState["maxHealth"];
+	}	
+}
+	
+  window.addEventListener('load', initializeGame);
+  
+      // Initialize the Web Audio API
+    var audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+    // Function to play the damage sound effect
+    function playDamageSound() {
+        var damageSound = audioContext.createBufferSource();
+        var request = new XMLHttpRequest();
+        request.open('GET', 'Music\soundeffects\Fist Hit B.wav', true);
+        request.responseType = 'arraybuffer';
+
+        request.onload = function () {
+            audioContext.decodeAudioData(request.response, function (buffer) {
+                damageSound.buffer = buffer;
+                damageSound.connect(audioContext.destination);
+                damageSound.start(0);
+            });
+        };
+
+        request.send();
+    }
+story.ObserveVariable("health", function(newValue, oldValue) {
+    if (newValue !== oldValue && !(newValue > oldValue)) {
+        playDamageSound();
+    }
+});
+
+// Function to play background music
+function playBackgroundMusic() {
+    var backgroundMusic = document.getElementById("MyAudio");
+    backgroundMusic.play();
+}
+
 })(storyContent);

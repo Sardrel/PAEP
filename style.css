@@ -73,13 +73,6 @@ html{
     height: 100%;
 }
 
-body{
-    font-family: "Body";
-    margin: 0;
-    min-height: 800px;
-    min-width: 1200px;
-    background-color: #191919;             /* Background */
-}
 
 @media (min-width: 1210px) and (min-height: 810px) {
     body {
@@ -93,6 +86,7 @@ body{
     margin-top: 20px;
     margin-bottom: 20px;
     text-shadow: 1px 1px 2px black; /* Text-shadow */
+	margin-left: 90px;
 }
 
 a{
@@ -272,9 +266,10 @@ button:focus, textarea:focus{
 }
 /* Outer status tab healthbar. */
 .healthbar {
+    margin-left: 75px;
     width: 794px;
     height: 40px;
-    border-color: #191919;     /* Background */
+    border-color: #191919;
     border-width: 3px;
     border-style: solid;
     border-radius: 43px 0px 20px 0px;
@@ -292,6 +287,7 @@ button:focus, textarea:focus{
     width: 350px;
     float: left;
     text-align: left;
+    margin-left: 90px;
 }
 
 /* Status tab health. */
@@ -317,9 +313,9 @@ body {
 	background-image:url("IMAGE/background1.png ");
 	background-size: cover;
     background-repeat: no-repeat;
-	min-height: 1600px;
-	min-width: 2400px;
+
 }
+
 
 body.switched {
     transition: color 1s, background-color 1s;
@@ -370,7 +366,8 @@ text-shadow: 1px 1px 2px black;}
 
 /* Half of the main window. */
 .half{
-    width: 435px;
+	margin-left: 90px;
+    width: 340px;
     float: left;
 	
 }
@@ -405,7 +402,7 @@ text-shadow: 1px 1px 2px black;}
 
 /* Stat comment of the attributes on the stats tab. */
 .statcomment {
-    width: 260px;
+    width: 195px;
     float: left;
 }
 
@@ -464,7 +461,7 @@ text-shadow: 1px 1px 2px black;}
     padding: 0;
     -webkit-overflow-scrolling: touch;
     overflow-x: hidden;
-    height: 90%;
+    height: 92%;
     width: 75%;
     top: 50px;
     left: 0;
@@ -702,14 +699,15 @@ img {
 }
 /* Button panel containing the four buttons at the bottom left. */
 .buttonpanel{
-    width: 300px;
-    height: 120px;
     margin-top: 15px;
     text-align: center;
-	left: 304px;
-	top: 769px;
-	bottom: 0px;
-	position: fixed;
+    left: 321px;
+    top: 775px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    bottom: 250px;
+    position: fixed;
 }
 /* One of the four buttons at the bottom left. */
 .uibutton{
@@ -726,6 +724,37 @@ img {
 	bottom:0px;
 	left:145px;
 	position: sticky;
+}
+
+/* Buttons. */
+.button{
+    padding: 1px 6px; /* Normalize padding across browsers. */
+    background-color: #005AA1;  /* Detail */
+    color: white;               /* Text */
+    font-size: 20px;
+    border-width: 3px;
+    border-style: solid;
+    border-color: #218374;      /* Main */
+    transition: 0.4s border; /* Same as popup fade-in. */
+}
+
+.button:hover{
+    border-color: #191919;      /* Background */
+}
+
+.button:active{
+    background-color: #191919;  /* Background */
+    transition: all 0.2s ease;
+}
+
+.button:disabled{
+    background-color: #191919;  /* Background */
+    border-color: #003C6C;      /* Main */
+    transition: all 1s ease;
+}
+
+.selected{
+    border-color: #FF6EC7 !important;      /* Rare */
 }
 
 #controls {
@@ -758,3 +787,305 @@ img {
         right: 0;
     }
 }
+.volume-control {
+    margin: 20px;
+	bottom:45px;
+	position: fixed;
+}
+
+#volumeButton {
+	box-sizing: border-box;
+	width: 35px;
+    height: 35px;
+    margin-bottom: 5px;
+    background-color: #2F444C;  /* Main */
+    color: white;               /* Text */
+    border: 0px;
+    font-family: 'Interface';
+    font-size: 16px;
+    cursor: pointer;
+	bottom:0px;
+	left: 0px;
+}
+
+.playbutton{
+    margin: 20px;
+	bottom:5px;
+	position: fixed;
+}
+#playButton {
+	box-sizing: border-box;
+	width: 36px;
+    height: 36px;
+    margin-bottom: 5px;
+    background-color: #2F444C;  /* Main */
+    color: white;               /* Text */
+    border: 0px;
+    font-family: 'Interface';
+    font-size: 16px;
+    cursor: pointer;
+	bottom:0px;
+	left:0px;
+	
+}
+button img {
+    width: 35px;  /* Set the width */
+    height: 35px; /* Set the height */
+    display: block;
+}
+#volumeSlider {
+    position: absolute;
+    bottom: 133px;
+    transform: rotate(-90deg);
+    width: 200px;
+    left: -83px;
+	
+}
+/* Saving throbber. */
+.throbber{
+    z-index: 40;
+    display: none;
+    position: absolute;
+}
+
+/* Loading and saving throbber images. */
+.throbber img{
+    width: 100%;
+}
+
+/* Loading throbber position. */
+.loading{
+    right: 0px;
+    bottom: 0px;
+}
+
+/* Saving throbber position. */
+.saving{
+    right: 12px;
+    bottom: 0px;
+    height: auto;
+}
+
+/* Top right part of the save and load tabs. */
+.savelimit{
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    color: #C0C0C0;             /* Sneaky */
+}
+
+/* The control bar at the bottom of save/load tabs. */
+.savecontrolbar{
+    position: -webkit-sticky; /* Safari fix. */
+    position: sticky;
+    left: 0px;
+    top: 700px;
+    width: 100%;
+    height: 100px;
+    background-color: #557D8B;  /* Main */
+}
+
+/* The left button on the control bar. */
+.saveleftbutton{
+    position: absolute;
+    width: 155px;
+    left: 50px;
+    bottom: 20px;
+    padding: 2px 15px !important;
+    font-size: 40px !important;
+    transition: background-color 0.4s ease;
+}
+
+/* Small button below the control bar. */
+.savesmallleftbutton{
+    width: 75px;
+    position: absolute;
+    left: 53px;
+    bottom: 3px;
+    font-size: 11px !important;
+    border-width: 1px !important;
+}
+
+/* Small button below the control bar. */
+.savesmallrightbutton{
+    width: 75px;
+    position: absolute;
+    left: 773px;
+    bottom: 3px;
+    font-size: 11px !important;
+    border-width: 1px !important;
+}
+
+/* The comment field in between the buttons on the save tab. */
+.savenewcommentfield{
+    position: absolute;
+    left: 24.5% !important;
+    bottom: 27px !important;
+}
+
+/* The right button on the control bar. */
+.saverightbutton{
+    position: absolute;
+    width: 155px;
+    right: 42px;
+    bottom: 20px;
+    padding: 2px 15px !important; 
+    font-size: 40px !important;
+    transition: background-color 0.4s ease;
+}
+.savedraganddropoverlay{
+    position: -webkit-sticky; /* Safari fix. */
+    position: sticky;
+    height: 700px;
+}
+
+/* Save slot for both loading and saving tabs. */
+.saveslot{
+    width: 800px;
+    height: 100px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    position: relative;
+    background-color: #557D8B;   /* Background */
+    font-size: 20px;
+}
+
+/* Save slot for autosaves and new games. */
+.smallsaveslot{
+    width: 800px;
+    height: 42px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    position: relative;
+    background-color: #557D8B;   /* Background */
+    font-size: 20px;
+}
+
+/* Make it so you can't select anything in save slots. */
+.saveslot *, .smallsaveslot * {
+    user-select: none;
+    pointer-events: none;
+}
+
+/* Class to be assigned to save slots when selected. */
+.saveslot:hover, .smallsaveslot:hover{
+    border-width: 2px;
+    border-style: solid;
+    border-color: #218374;    /* Detail */
+    width: 796px;
+    margin-bottom: 16px;
+}
+
+/* Class to be assigned to save slots when selected. */
+.saveslotselected{
+    border-width: 2px;
+    border-style: solid;
+    border-color: white !important;     /* Text */
+    width: 796px;
+    margin-bottom: 16px;
+}
+
+/* Save gender-background. */
+.savegender {
+    left: 50px;
+    max-height: 100%;
+    position: absolute;
+}
+
+/* Save gender-background for small saves. */
+.smallsaveslot .savegender {
+    left: 110px;
+}
+
+/* Save number. */
+.saverank {
+    top: 5px;
+    left: 10px;
+    position: absolute;
+}
+
+/* Save time ago. */
+.savetimestamp {
+    top:5px;
+    right: 10px;
+    position: absolute;
+}
+
+/* Save character name. */
+.savename {
+    top: 5px;
+    right: 0px;
+    width: 40%;
+    position: absolute;
+    text-align: left;
+}
+
+/* Save scene. */
+.savescene {
+    top: 5px;
+    left: 15%;
+    width: 40%;
+    position: absolute;
+    text-align: center;
+}
+
+/* Save comment. Text box. */
+.savecomment {
+    bottom: 15px;
+    left: 33%;
+    position: absolute;
+    font-family: "MonoInput";
+    overflow: hidden;
+    background-color: transparent;
+    color: white;               /* Text */
+    font-size: 16px;
+resize: none;
+}
+.save-slot {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.save-slot:hover {
+    background-color: #f5f5f5;
+}
+
+#saveSlotsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}	
+
+#game-board {
+  display: grid;
+  grid-template-columns: repeat(4, 100px);
+  gap: 10px; 
+  align-items: center;
+  justify-content: center;
+  width: auto; /* Adjust to your desired width */
+  height: auto; /* Adjust to your desired height */
+  margin: 0;
+  background-color: #2F444C;
+}
+
+    .card {
+      width: 100px;
+      height: 100px;
+      background-size: contain;
+      background-position: center;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: transform 0.3s ease-in-out;
+      background: url('IMAGE/Flipgame/blank.png'); /* Set the blank image */
+    }
+
+    .card.selected {
+      transform: scale(1.1);
+      background-size: contain;
+    }
+
+    .hidden {
+      visibility: hidden;
+    }

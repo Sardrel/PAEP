@@ -1,9 +1,13 @@
 ﻿<!doctype html>
 <html lang="en">
 <head>
+
+
     <meta charset="utf-8">
 
     <title>Pony Adventure</title>
+	<link rel="shortcut icon" href="IMAGE/MLP Symbol.png" type="image/x-icon">
+	<link rel="icon" href="IMAGE/MLP Symbol.png" type="image/x-icon">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -14,9 +18,11 @@
 <body>
 	<div class= "title" id="logop">Pony Adventure</div>
     <div class="outerContainer">
-        <h3 class="written-in-ink"><a href="https://www.inklestudios.com/ink">WRITTEN IN INK</a></h3>
+	
+	<audio id="myAudio" src="Music\Canterhorn\Main Theme.wav" autoplay loop > </audio>
+     <audio id="damageSound" src="Music\soundeffects\Fist Hit B.wav"></audio>
 
-
+		
         <div id="story" class="container">
 		
 		
@@ -24,6 +30,7 @@
                 <h1>Welcome to Pony Adventure</h1>
                 <h2 class="byline"></h2>
             </div>
+			<div id="game-board" style="display: none;"></div>
         </div>
 		<div id="stats" class="container" style="display: none;">
 		<div class="statsTitle">Stats</div>
@@ -44,7 +51,6 @@
 		<div class="p sneakytext"id="ConstitutionComment">Average.</div>
 		</div>
 		</div>
-		<div class="half">
 		<div class="statname">
 		<div class="p nomargin">Intelligence</div>
 		<div class="p nomargin">Wisdom</div>
@@ -58,7 +64,6 @@
 		<div class="p nomargin sneakytext" id="IntelligenceComment">Average.</div>
 		<div class="p nomargin sneakytext"id="WisdomComment">Average.</div>
 		<div class="p sneakytext"id="CharismaComment">Average.</div></div>
-		</div>
 		</div>
 		
 		<div id="status" class="container" style="display: none;">
@@ -107,11 +112,18 @@
 		<h2>This is Place Holder for Spells</h2>
 		</div>
 		<div id="save" class="container" style="display: none;">
-		<h2>This is Place Holder for Save</h2>
-		</div>
-		<div id="load" class="container" style="display: none;">
-		<h2>This is Place Holder for Load</h2>
-		</div>
+		<div class="main" id="main"><div class="savelimit">0 / 99</div>
+		<div class="content" id="content"><div class="statsTitle">Save</div>
+                       <div id="saveSlotsContainer"></div>
+                    </div><div class="finish"></div><div class="finish"></div><div class="finish" id="finisher"></div></div><div class="savecontrolbar">
+                    <button class="button saveleftbutton warning" id="deletebutton" disabled="">Delete</button>
+                    <button class="button savesmallleftbutton" id="exportAllbutton">Export ALL</button>
+                    <textarea rows="2" cols="55" maxlength="114" class="savecomment savenewcommentfield" placeholder="Comment. Old comment if left blank." id="newcomment"></textarea>
+                    <button class="button saverightbutton" id="saveButton" >Save</button>
+                    <button class="button savesmallrightbutton" id="exportButton">Export</button>
+                </div>
+				</div>
+				</div>
    <div class="leftbar">
 
                 <div class="logopanel">
@@ -119,31 +131,47 @@
                 </div>
 				<div class="buttonpanel">
                    
-                    <a target="_blank" href="credits/index.html">
+					<a target="_blank" href="credits/index.html">
                         <button class="uibutton" id="creditsbutton">Credits</button>
                     </a>
                     <a target="_blank" href="https://www.patreon.com/user?u=65513562">
                         <button class="uibutton" id="patreonbutton">Patreon</button>
 					</a>
-					<a>
-					<button class="uibutton" id="rewind" title="Restart story from beginning">Restart</button>
+					<a target="_blank" href="https://ko-fi.com/ponyadventure">
+                        <button class="uibutton" id="donatebutton">Donate</button>
+                    </a>
+					 <a target="_blank" href="https://discord.gg/rD7Sba2FMF">
+                        <button class="uibutton" id="discordbutton">Discord</button>
 					</a>
-					</div>
+					
                 <div class="tabpanel">
                     <button class="tab tabactive" id="scenetab">Scene</button>
                     <button class="tab" id="statstab">Stats</button>
                     <button class="tab" id="statustab">Status</button>
                     <button class="tab" id="inventorytab">Inventory</button>
-					<button class="tab" id="spellstab">Spells</button>
+					<button class="tab" id="spellstab" style="display: none">Spells</button>
                     <button class="tab" id="savetab">Save</button>
-                    <button class="tab" id="loadtab">Load</button>
+
                     <button class="tab" id="milestonestab" style="display:none;">Milestones</button>
+					<a>
+					<button class="tab" id="rewind" title="Restart story from beginning">Restart</button>
+					</a>
+					</div>
                 </div>
 
    </div>
-               
+
+<div class="volume-control">
+    <button id="volumeButton"><img src="IMAGE\Icon\Volume Icon.png" alt="Volume"></button>
+	<input type="range" id="volumeSlider" min="0" max="1" value=".5" step ="0.01" style="display: none;">
+	</div>
+	<div class="playbutton">
+	<button id="playButton"> <img id="buttonImage" src="IMAGE\Icon\Play Button.gif"></button>
+	</div>
+
+</div>    
 </div>
-    <script src="ink.js"></script>
+	<script src="ink.js"></script>
     <script src="Pony Quest.js"></script>
     <script src="main.js"></script>
 </body>
