@@ -18,21 +18,18 @@
 <body>
 	<div class= "title" id="logop">Pony Adventure</div>
     <div class="outerContainer">
-	
-	<audio id="myAudio" src="Music\Canterhorn\Main Theme.wav" autoplay loop > </audio>
-     <audio id="damageSound" src="Music\soundeffects\Fist Hit B.wav"></audio>
+	<audio id="myAudio" src="Music\Canterhorn\Main Theme.mp3" autoplay loop > </audio>
+      
 
-		
-        <div id="story" class="container">
+        <div id="story" class="container fade-in-out show scrollable">
 		
 		
             <div class="header">
                 <h1>Welcome to Pony Adventure</h1>
                 <h2 class="byline"></h2>
             </div>
-			<div id="game-board" style="display: none;"></div>
         </div>
-		<div id="stats" class="container" style="display: none;">
+		<div id="stats" class="container fade-in-out ">
 		<div class="statsTitle">Stats</div>
 		<h2 class="subtitle">Attributes</h2>
 		<div class="half">
@@ -66,7 +63,7 @@
 		<div class="p sneakytext"id="CharismaComment">Average.</div></div>
 		</div>
 		
-		<div id="status" class="container" style="display: none;">
+		<div id="status" class="container fade-in-out">
 		<div class="statsTitle">Status</div>
 		<h2 class="subtitle">Health</h2>
 		<div class="healthbar">
@@ -105,25 +102,39 @@
 		</div>
 		<div class="text healthbarnumber bold"id="xpNum"> 0 / 100</div>
 		</div>
-		<div id="inventory" class="container" style="display: none;">
-		<h2>This is Place Holder for Inventory</h2>
+		<div id="inventory" class="container fade-in-out" >
+			<div class="statsTitle">Equipment</div>
+			<div id="pequipment">
+			<ul id="equippedItems"></ul>
+			</div>
+		<div class="statsTitle">Inventory </div>
+		 <div id="pinventory">
+		
+		<li class="header">
+      <span>Name</span>
+      <span>Description</span>
+      <span>QTY</span>
+		</li>
+		<ul id="items"></ul>
+
+        </div>       
 		</div>
-		<div id="spells" class="container" style="display: none;">
+		<div id="spells" class="container fade-in-out" >
 		<h2>This is Place Holder for Spells</h2>
 		</div>
-		<div id="save" class="container" style="display: none;">
-		<div class="main" id="main"><div class="savelimit">0 / 99</div>
+		<div id="save" class="container fade-in-out" >
 		<div class="content" id="content"><div class="statsTitle">Save</div>
-                       <div id="saveSlotsContainer"></div>
-                    </div><div class="finish"></div><div class="finish"></div><div class="finish" id="finisher"></div></div><div class="savecontrolbar">
-                    <button class="button saveleftbutton warning" id="deletebutton" disabled="">Delete</button>
-                    <button class="button savesmallleftbutton" id="exportAllbutton">Export ALL</button>
+		<div id="saveSlotsContainer" class="save-slots-container">
+        <!-- Save slots will be rendered here dynamically -->
+		</div>
+		<div class="savecontrolbar">
+                    <button class="button saveleftbutton warning" id="deletebutton" >Delete</button>
                     <textarea rows="2" cols="55" maxlength="114" class="savecomment savenewcommentfield" placeholder="Comment. Old comment if left blank." id="newcomment"></textarea>
-                    <button class="button saverightbutton" id="saveButton" >Save</button>
-                    <button class="button savesmallrightbutton" id="exportButton">Export</button>
-                </div>
-				</div>
-				</div>
+                    <button class="button saverightbutton" id="saveButton" >Save</button style>
+					<button class="button loadrightbutton" id="loadButton" >Load</button>
+                            </div>
+		</div>
+		</div>
    <div class="leftbar">
 
                 <div class="logopanel">
@@ -131,32 +142,28 @@
                 </div>
 				<div class="buttonpanel">
                    
-					<a target="_blank" href="credits/index.html">
+					<a target="_blank" href="credits/credits.html">
                         <button class="uibutton" id="creditsbutton">Credits</button>
                     </a>
                     <a target="_blank" href="https://www.patreon.com/user?u=65513562">
                         <button class="uibutton" id="patreonbutton">Patreon</button>
 					</a>
-					<a target="_blank" href="https://ko-fi.com/ponyadventure">
-                        <button class="uibutton" id="donatebutton">Donate</button>
-                    </a>
+
 					 <a target="_blank" href="https://discord.gg/rD7Sba2FMF">
                         <button class="uibutton" id="discordbutton">Discord</button>
 					</a>
-					
+					<a>
+					<button class="uibutton" id="rewind" title="Restart story from beginning">Restart</button>
+					</a>
+					</div>
                 <div class="tabpanel">
                     <button class="tab tabactive" id="scenetab">Scene</button>
                     <button class="tab" id="statstab">Stats</button>
                     <button class="tab" id="statustab">Status</button>
                     <button class="tab" id="inventorytab">Inventory</button>
 					<button class="tab" id="spellstab" style="display: none">Spells</button>
-                    <button class="tab" id="savetab">Save</button>
-
+                    <button class="tab" id="savetab">Save</button>           
                     <button class="tab" id="milestonestab" style="display:none;">Milestones</button>
-					<a>
-					<button class="tab" id="rewind" title="Restart story from beginning">Restart</button>
-					</a>
-					</div>
                 </div>
 
    </div>

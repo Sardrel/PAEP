@@ -73,6 +73,13 @@ html{
     height: 100%;
 }
 
+body{
+    font-family: "Body";
+    margin: 0;
+    min-height: 80%;
+    min-width: 100%;
+    background-color: #191919;             /* Background */
+}
 
 @media (min-width: 1210px) and (min-height: 810px) {
     body {
@@ -99,7 +106,7 @@ a:link, a:visited{
 }
 
 p, h1, h2, h3, h4, h5, h6{
-    margin: 0px;
+    margin-bottom: 20px;
 }
 
 button:focus, textarea:focus{
@@ -310,7 +317,7 @@ body {
     font-family: 'Open Sans', sans-serif;
     font-weight: lighter;
     overflow: hidden;
-	background-image:url("IMAGE/background1.png ");
+	background-image:url("IMAGE/Backgrounds/Start.png ");
 	background-size: cover;
     background-repeat: no-repeat;
 
@@ -347,11 +354,6 @@ h2 {
     color: #BBB;
 }
 
-.header {
-    padding-top: 3em;
-    padding-bottom: 3em;
-	
-}
 .title{
 	z-index:1;
     display:block;
@@ -461,6 +463,7 @@ text-shadow: 1px 1px 2px black;}
     padding: 0;
     -webkit-overflow-scrolling: touch;
     overflow-x: hidden;
+	overflow-y: auto;
     height: 92%;
     width: 75%;
     top: 50px;
@@ -469,14 +472,6 @@ text-shadow: 1px 1px 2px black;}
     background-size: cover;
     background-repeat: no-repeat;
 	left: 250px;
-}
-
-@media screen and (max-width: 980px) {
-    .outerContainer {
-        margin-top: 44px;
-        background-size: cover;
-        background-repeat: no-repeat;
-    }
 }
 
 
@@ -505,8 +500,8 @@ text-shadow: 1px 1px 2px black;}
 
 	position: relative;
     display: block;
-    max-width: 1200px;
-	height:700px;
+    max-width: 100%;
+	height:70%;
 	margin-left: 400px;
     padding: 20px;
     padding-top: 4em;
@@ -625,7 +620,6 @@ strong {
 
 img {
     display: block;
-    margin: 0 auto;
     max-width: 100%;
 }
 
@@ -706,7 +700,7 @@ img {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1px;
-    bottom: 250px;
+    bottom: 200px;
     position: fixed;
 }
 /* One of the four buttons at the bottom left. */
@@ -724,37 +718,6 @@ img {
 	bottom:0px;
 	left:145px;
 	position: sticky;
-}
-
-/* Buttons. */
-.button{
-    padding: 1px 6px; /* Normalize padding across browsers. */
-    background-color: #005AA1;  /* Detail */
-    color: white;               /* Text */
-    font-size: 20px;
-    border-width: 3px;
-    border-style: solid;
-    border-color: #218374;      /* Main */
-    transition: 0.4s border; /* Same as popup fade-in. */
-}
-
-.button:hover{
-    border-color: #191919;      /* Background */
-}
-
-.button:active{
-    background-color: #191919;  /* Background */
-    transition: all 0.2s ease;
-}
-
-.button:disabled{
-    background-color: #191919;  /* Background */
-    border-color: #003C6C;      /* Main */
-    transition: all 1s ease;
-}
-
-.selected{
-    border-color: #FF6EC7 !important;      /* Rare */
 }
 
 #controls {
@@ -841,12 +804,6 @@ button img {
     left: -83px;
 	
 }
-/* Saving throbber. */
-.throbber{
-    z-index: 40;
-    display: none;
-    position: absolute;
-}
 
 /* Loading and saving throbber images. */
 .throbber img{
@@ -894,6 +851,8 @@ button img {
     padding: 2px 15px !important;
     font-size: 40px !important;
     transition: background-color 0.4s ease;
+	background-color: #2F444C;
+	color: white; 
 }
 
 /* Small button below the control bar. */
@@ -932,7 +891,53 @@ button img {
     padding: 2px 15px !important; 
     font-size: 40px !important;
     transition: background-color 0.4s ease;
+	background-color: #2F444C;
+	color: white; 
 }
+
+.loadrightbutton{
+    position: absolute;
+    width: 155px;
+    right: 200px;
+    bottom: 20px;
+    padding: 2px 15px !important; 
+    font-size: 40px !important;
+    transition: background-color 0.4s ease;
+	background-color: #2F444C;
+	color: white; 
+}
+
+/* The milestones button at the center of the load tab control bar. */
+.milestonebutton {
+    position: absolute;
+    width: 226px;
+    left: 333px;
+    bottom: 20px;
+    padding: 2px 15px !important; 
+    font-size: 40px !important;
+}
+
+/* The back button on the milestones tab. */
+.milestonebackbutton {
+    position: absolute;
+    width: 135px;
+    left: -20px;
+    top: -20px;
+    padding: 2px 15px !important; 
+    font-size: 26px !important;
+}
+
+/* The back button on the milestones tab. */
+.milestoneresetbutton {
+    position: absolute;
+    width: 80px;
+    right: -20px;
+    top: -20px;
+    padding: 2px 15px !important; 
+    font-size: 18px !important;
+}
+
+
 .savedraganddropoverlay{
     position: -webkit-sticky; /* Safari fix. */
     position: sticky;
@@ -946,7 +951,7 @@ button img {
     border-radius: 15px;
     margin-bottom: 20px;
     position: relative;
-    background-color: #557D8B;   /* Background */
+    background-color: #2F444C;   /* Background */
     font-size: 20px;
 }
 
@@ -957,7 +962,7 @@ button img {
     border-radius: 15px;
     margin-bottom: 20px;
     position: relative;
-    background-color: #557D8B;   /* Background */
+    background-color: #2F444C;   /* Background */
     font-size: 20px;
 }
 
@@ -971,7 +976,7 @@ button img {
 .saveslot:hover, .smallsaveslot:hover{
     border-width: 2px;
     border-style: solid;
-    border-color: #218374;    /* Detail */
+    border-color: #005AA1;    /* Detail */
     width: 796px;
     margin-bottom: 16px;
 }
@@ -1039,53 +1044,649 @@ button img {
     background-color: transparent;
     color: white;               /* Text */
     font-size: 16px;
-resize: none;
-}
-.save-slot {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 10px;
-    cursor: pointer;
+    resize: none;
 }
 
-.save-slot:hover {
-    background-color: #f5f5f5;
+/* A block of milestones on the milestones page. */
+.milestoneblock {
+    position: relative;
+    margin-bottom: 25px;
 }
 
-#saveSlotsContainer {
+/* A single milestone on the milestones page. */
+.milestone {
+    width: 784px;
+    height: 24px;
+    padding: 3px;
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 5px;
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-bottom: 7px;
+    position: relative;
+    display: inline-block;
+    user-select: none;
+    background-color: #191919;      /* Background */
+}
+
+/* Half a milestone on the milestones page. */
+.milestonehalf {
+    width: 384px;
+    margin-left: 2px;
+    margin-right: 2px;
+    margin-bottom: 3px;
+}
+
+/* Extra bottom padding because something fucked up. */
+.milestonehalffix {
+    margin-bottom: 7px;
+}
+
+/* An unlocked milestone on the milestones page. */
+.milestoneunlocked {
+    background-color: #005AA1;      /* Detail */
+    border-color: #005AA1;          /* Detail */
+}
+
+/* A locked milestone on the milestones page. */
+.milestonelocked {
+    border-color: #191919;          /* Background */
+}
+
+/* The name of a milestone. */
+.milestonename {
+    line-height: 24px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 5px;
+    float: left;
+}
+
+/* The scene of a milestone. */
+.milestonescene {
+    line-height: 24px;
+    font-size: 14px;
+    padding-left: 15px;
+    float: left;
+}
+
+/* The hint of a milestone. */
+.milestonehint {
+    line-height: 24px;
+    font-size: 12px;
+    margin-right: 5px;
+    overflow: hidden;
+    text-align: right;
+    /*font-size: 12px;
+    margin-left: 15px;
+    float: left;*/
+}
+
+/* The image of an achievement. */
+.milestoneachievementthumbnail {
+    float: left;
+    margin-left: 20px;
+}
+
+/* The image of an achievement. */
+.milestoneachievementimage {
+    visibility: hidden;
+    position: absolute;
+    z-index: 20;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    margin-top: 6px;
+}
+
+.milestoneachievementimageright {
+    left: -420px;
+}
+
+.milestoneachievementimageleft {
+    left: -20px;
+}
+
+/* Make the images fade in and out. */
+.milestoneunlocked:hover .milestoneachievementimage {
+    visibility: visible;
+    opacity: 1 !important;
+}
+
+/* Make the load buttons fade in and out. */
+.milestoneunlocked:hover .milestoneloadbutton {
+    opacity: 1 !important;
+}
+
+/* Progress bar for milestones. */
+.milestonesprogress {
+    float: right;
+    width: 400px !important;
+    height: 30px !important;
+    margin-top: 6px;
+}
+
+/* Total progress bar for milestones. */
+.milestonestotalprogress {
+    width: 600px !important;
+    height: 40px !important;
+    margin-bottom: 50px;
+}
+
+/* Text for milestones total progress bar. */
+.milestonetotalprogresstextleft {
+    float: left;
+    font-size: 20px;
+    margin-top: 7px;
+    margin-left: 22px;
+    margin-right: 20px;
+    width: 55px;
+    text-align: center;
+}
+
+/* Text for milestones total progress bar. */
+.milestonetotalprogresstextright {
+    float: right;
+    font-size: 20px;
+    margin-top: 7px;
+    margin-right: 12px;
+    width: 75px;
+    text-align: center;
+}
+
+/* Text for milestones progress bars. */
+.milestoneprogresstext {
+    float: right;
+    font-size: 20px;
+    margin-top: 7px;
+    margin-left: 20px;
+}
+
+.button:hover{
+   	border-style: solid;
+	border-width: 3px;
+	border-color: #218374;
+
+	background:#749BAA;
+	
+}
+
+.button:active{
+    background-color: #191919;  /* Background */
+    transition: all 0.2s ease;
+}
+
+.button:disabled{
+    background-color: #191919;  /* Background */
+    border-color: #003C6C;      /* Main */
+    transition: all 1s ease;
+}
+
+.save-slots-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-}	
-
-#game-board {
-  display: grid;
-  grid-template-columns: repeat(4, 100px);
-  gap: 10px; 
-  align-items: center;
-  justify-content: center;
-  width: auto; /* Adjust to your desired width */
-  height: auto; /* Adjust to your desired height */
-  margin: 0;
-  background-color: #2F444C;
+    gap: 10px;
 }
 
-    .card {
-      width: 100px;
-      height: 100px;
-      background-size: contain;
-      background-position: center;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: transform 0.3s ease-in-out;
-      background: url('IMAGE/Flipgame/blank.png'); /* Set the blank image */
+/* Style for Save Slot */
+.save-slot {
+	width: 1000px;
+	height: 40px;
+	background-color: #557D8B; /* Change the background color */
+    color: white; /* Change the text color */
+    padding: 10px; /* Adjust padding as needed */
+    margin: 5px; /* Adjust margin as needed */
+    cursor: pointer; /* Change cursor style on hover */
+    border: 1px solid #2F444C; /* Add border */
+    border-radius: 5px; /* Add border radius */
+}
+.save-slot:hover {
+    background-color: #f0f0f0;
+}
+
+.fade-in-out {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 70%; /* Set a fixed width */
+  height: 100%; /* Set a fixed height */
+  transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
+}
+
+.fade-in-out.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+.scrollable {
+      overflow-x: hidden;
+	  height: 100vh; /* Adjust the height as needed */
     }
 
-    .card.selected {
-      transform: scale(1.1);
-      background-size: contain;
-    }
 
-    .hidden {
-      visibility: hidden;
-    }
+.save-info {
+    /* Add your save info styles here */
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #333;
+    position: relative;
+}
+
+.save-info p {
+    /* Add styles for all <p> elements within save-info */
+    margin: 5px 0; /* Add some margin between paragraphs */
+}
+
+.save-info p.level {
+    /* Style the Level <p> element */
+    position: absolute;
+	bottom: 0; /* Position at the bottom */
+    right: 0; /* Position at the right */
+
+}
+
+.save-info p.location {
+    /* Style the Location <p> element */
+    position: absolute;
+	top: 10px; /* Position at the top */
+    right: 0; /* Position at the right */
+}
+.save-slot.selectedSlot {
+    /* Add your styling for the "glow" effect */
+    border: 3px solid #218374;;
+    /* Add any additional styling as needed */
+}
+
+
+#pinventory {
+  max-width: 600px;
+  max-height: 600px;
+  margin: 20px auto;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #557D8B;
+  overflow-y: auto;
+  position: relative;
+}
+
+#pequipment {
+  max-width: 600px;
+  max-height: 600px;
+  margin: 20px auto;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #557D8B;
+  overflow-y: auto;
+  position: relative;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    flex-direction: row;
+}
+
+
+.header{
+position: relative;
+left: 35px;
+width: 79%;
+}
+
+.header span {
+  display: inline-block;
+  width: 160px;
+  font-weight: bold;
+}
+span{
+	width:155px;
+	 display: inline-block;
+  text-align: center; /* Center the text within the span */
+}
+
+
+
+button {
+  cursor: pointer;
+}
+
+
+
+
+.sellrightbutton{
+    position: absolute;
+    width: 155px;
+    right: 90px;
+    bottom: 140px;
+    padding: 2px 15px !important; 
+    font-size: 40px !important;
+    transition: background-color 0.4s ease;
+	background-color: #2F444C;
+	color: white; 
+}
+.itemrightbutton{
+    position: absolute;
+    width: 155px;
+    right: 280px;
+    bottom: 140px;
+    padding: 2px 15px !important; 
+    font-size: 40px !important;
+    transition: background-color 0.4s ease;
+	background-color: #2F444C;
+	color: white; 
+}
+
+@media screen and (max-width: 980px) {
+	
+.outerContainer {
+    position: fixed;
+    display: block;
+    margin: 0;
+    padding: 0;
+    height: 93%;
+    width: 100%;
+	overflow-y: auto;
+    top: 0px;
+    background:#557D8B;
+    background-size: cover;
+    background-repeat: no-repeat;
+	left: 10px;
+}
+
+.container {
+    position: relative; /* Position relative to .outerContainer */
+    display: block;
+    height: 100%;
+    width: 100%;
+	padding: 20px;
+	padding-left: 20px;
+	padding-right: 20px;
+    padding-top: 0em;
+    padding-bottom: 0em;
+    background: #2F444C;
+    top: 0; /* Adjust top value as needed */
+}
+
+
+.fade-in-out {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: -25px;
+  overflow-y: auto;
+  width: 55%; /* Set a fixed width */
+  height: 100%; /* Set a fixed height */
+  transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
+}
+
+.fade-in-out.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.leftbar {
+    width: 42%;
+    height: 100%;
+    position: absolute;
+    left: 0px; /* Adjusted left */
+    top: 0px;
+    user-select: none;
+}
+
+.tabpanel {
+    width: 25%;
+    height: 15%;
+    top: 40px;
+    margin-top: 5px;
+    text-align: center;
+    position: fixed;
+    bottom: 150px;
+    left: 65px; /* Adjusted left */
+}
+
+/* Tab button. */
+.tab{
+    width: 75%;
+    height: 50%;
+    margin-bottom: 5px;
+    border: 0px;
+    font-size: 25px;
+    color: white;               /* Text */
+    border-radius: 30px 30px 30px 30px;
+    background-color: #2F444C;  /* Main */
+    transition: background-color 0.6s ease;
+    position: relative; /* Enables blinking */
+	bottom:0px;
+    overflow: hidden;
+}
+
+/* Tab button onhover. */
+.tab:hover{
+    border-width: 4px 0px 3px 0px;
+    border-color: #218374;        /* Text */
+    border-style: solid;
+	/* The scrollbar of the main container. */
+}
+
+.title{
+	z-index:1;
+    display:block;
+	position: fixed;
+	font-family: Sedgwick Ave Display;
+    font-size: 20px;
+    margin-bottom: 25px;
+	color:white;
+	left: 125px;
+	top: 10px;
+text-shadow: 1px 1px 2px black;}
+
+.logo{
+    z-index: 2;
+    width: 0px;
+    height: 0px;
+    position: fixed;
+    top: 0px;
+    left: 145px;
+}
+
+.uibutton{
+    width: 110px;
+    height: 25px;
+    margin-bottom: 3px;
+    border-radius: 30px;
+    background-color: #2F444C;  /* Main */
+    color: white;               /* Text */
+    border: 0px;
+    font-family: 'Interface';
+    font-size: 16px;
+    cursor: pointer;
+	bottom:0px;
+	left:145px;
+}
+.buttonpanel{
+    margin-top: 15px;
+    text-align: center;
+	top: 200px;
+    left: 75px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    bottom: 150px;
+    position: fixed;
+}
+
+/* Half of the main window. */
+.half{
+	margin-left: 0px;
+    width: 255px;
+    float: left;
+	
+}
+
+/* Left half of the main window, with right-padding. */
+.lefthalf{
+    width: 396px;
+    float: left;
+    padding-right: 4px;
+}
+
+/* Right half of the main window, with left-padding.*/
+.righthalf{
+    width: 396px;
+    float: right;
+    padding-left: 4px;
+}
+/* Stat name of the attributes on the stats tab. */
+.statname {
+    width: 80px;
+    float: left;
+	color:white;
+}
+
+/* Stat number of the attributes on the stats tab. */
+.statnumber {
+    width: 60px;
+    text-align: center;
+    float: left;
+	color:white;
+}
+
+/* Stat comment of the attributes on the stats tab. */
+.statcomment {
+    width: 105px;
+    float: left;
+}
+
+.statsTitle{
+	font-family: "Sedgwick Ave Display";
+    font-size: 50px;
+    text-align: center;
+    margin-bottom: 0px;
+	height:50px;
+    text-shadow: 1px 1px 2px black;
+	color:white;
+}
+
+
+.EquipmentName{
+	font-family: "Sedgwick Ave Display";
+    font-size: 50px;
+    text-align: center;
+    margin-bottom: 0px;
+	height:50px;
+    text-shadow: 1px 1px 2px black;
+	color:white;
+}
+
+.InventoryName{
+	font-family: "Sedgwick Ave Display";
+    font-size: 50px;
+    text-align: center;
+    margin-bottom: 0px;
+	height:50px;
+    text-shadow: 1px 1px 2px black;
+	color:white;
+}
+
+
+.subtitle{
+    font-size: 28px;
+	text-align:left;
+    margin-top: 4px;
+    margin-bottom: 5px;
+    text-shadow: 1px 1px 2px black; /* Text-shadow */
+	margin-left: 20px;
+}
+
+.healthbar {
+    margin-left: 0px;
+    width: 480px;
+    height: 18px;
+    border-color: #191919;
+    border-width: 3px;
+    border-style: solid;
+    border-radius: 43px 0px 20px 0px;
+    overflow: hidden;
+
+}
+.healthbarnumber {
+	color:white;
+}
+/* Inner status tab healthbar. */
+.healthbarinner {
+    height: 100%;
+}
+.healhbarcomment {
+    width: 205px;
+    float: left;
+    text-align: left;
+    margin-left: 0px;
+}
+
+
+.choice:hover{
+	border-style: solid;
+	border-width: 3px;
+	border-color: #218374;
+
+	background:#749BAA;
+	
+}
+
+.choice {
+    position: relative;
+	width: 150px;
+	text-align: center;
+    line-height: 1.7em;
+	margin: 12px 15px;
+	font-weight: normal;
+	font-size: 1rem;
+	background: #557D8B;
+	color: white;
+	padding: 15px;
+	left:30px;
+	
+}
+
+/*
+  Class applied to choice links
+*/
+.choice a {
+    font-size: 12pt;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #2F444C; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #557D8B; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #557D8B;
+}  
+}
+
+
+}
+

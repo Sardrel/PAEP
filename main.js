@@ -2,11 +2,26 @@
 
     // Create ink story from the content using inkjs
     var story = new inkjs.Story(storyContent);
+const currentVersion = 'v3';  // Change this version number when you update your code
+const storedVersion = localStorage.getItem('appVersion');
+
+// Function to roll a specified-sided die
+function rollDie(sides) {
+  return Math.floor(Math.random() * sides) + 1;
+}
+
+
+if (storedVersion !== currentVersion) {
+    // Clear localStorage or perform any other actions needed for the update
+    localStorage.clear();
+    localStorage.setItem('appVersion', currentVersion);
+}
 	// Here's the function
 	story.BindExternalFunction ("get_name", () => {
     // 'prompt' is a built-in Javascript method
     return prompt("Welcome to Pony Adventure, your first step on your journey is answering the following question. What is your name?", "Anon");
 	});
+
 
     var savePoint = "";
 
@@ -109,6 +124,8 @@
                     showAfter(delay, imageElement);
                     delay += 200.0;
                 }
+				
+							
 
 				// INPUT BAR: src
                 if( splitTag && splitTag.property == "INPUT" ) {
@@ -143,7 +160,7 @@
                 // RESTART - clears everything and restarts the story from the beginning
                 else if( tag == "CLEAR" || tag == "RESTART" ) {
                     removeAll("p");
-                    removeAll("img");
+                    removeAll("#imageContainer img");
 
                     // Comment out this line if you want to leave the header visible when clearing
                     setVisible(".header", false);
@@ -319,7 +336,9 @@
 
         return null;
     }
+	//Loads Spell Tab if ahs spells
 
+	
     // Loads save state if exists in the browser memory
     function loadSavePoint() {
 
@@ -361,159 +380,11 @@
         let rewindEl = document.getElementById("rewind");
         if (rewindEl) rewindEl.addEventListener("click", function(event) {
             removeAll("p");
-            removeAll("img")
+            removeAll("#story img")
 			removeAll(".choice");
             setVisible(".header", false);
             restart();
         });
-
-
-function saveGameSlot(slotIndex) {
-    try {
-        let savedSlots = JSON.parse(window.localStorage.getItem('save-slots')) || [];
-
-        // Assuming story.state.SaveJson is a function to get the serialized state
-        let currentState = story.state.toJson();
-
-        // Update or add the saved state to the specified slot
-        savedSlots[slotIndex] = currentState;
-
-        // Save the updated slots array back to local storage
-        window.localStorage.setItem('save-slots', JSON.stringify(savedSlots));
-
-        // Enable the load button assuming you want to enable it after a save
-        document.getElementById("loadtab").removeAttribute("disabled");
-
-        console.log(`Game saved to Slot ${slotIndex + 1}`);
-    } catch (e) {
-        console.debug("Couldn't save game state");
-    }
-}
-
-
-function loadSaveSlot(slotIndex) {
-    let reloadEl = document.getElementById("loadbutton");
-    
-    // Assuming hasSave is a boolean indicating whether there is a save in the specified slot
-    if (!hasSave(slotIndex)) {
-        reloadEl.setAttribute("disabled", "disabled");
-    }
-
-    reloadEl.addEventListener("click", function(event) {
-        if (reloadEl.getAttribute("disabled")) {
-            return;
-        }
-
-        removeAll("p");
-        removeAll("img");
-        removeAll(".choice");
-
-        try {
-            let savedSlots = JSON.parse(window.localStorage.getItem('save-slots')) || [];
-
-            if (slotIndex >= 0 && slotIndex < savedSlots.length) {
-                let savedState = savedSlots[slotIndex];
-                // Assuming story.state.LoadJson is a function to load the state
-                story.state.LoadJson(savedState);
-            }
-        } catch (e) {
-            console.debug("Couldn't load save state");
-        }
-
-        // Assuming continueStory is a function to continue the story/game
-        continueStory(true);
-    });
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-    const saveSlotsContainer = document.getElementById("saveSlotsContainer");
-    const saveButton = document.getElementById("saveButton");
-    const loadButton = document.getElementById("loadButton");
-    const textContainer = document.getElementById("story"); // Assuming you have a container with ID "textContainer"
-
-    saveButton.addEventListener("click", function () {
-        // Replace 0 with the desired slot index
-        saveGameSlot(0);
-        renderSaveSlots();
-    });
-
-    loadButton.addEventListener("click", function () {
-        // Replace 0 with the desired slot index
-        loadSaveSlot(0);
-        loadTextContent(0); // Load text content as well
-    });
-
-    // Function to render save slots
-    function renderSaveSlots() {
-        saveSlotsContainer.innerHTML = ""; // Clear previous slots
-
-        let savedSlots = JSON.parse(window.localStorage.getItem('save-slots')) || [];
-
-        savedSlots.forEach((save, index) => {
-            const saveSlot = document.createElement("div");
-            saveSlot.classList.add("save-slot");
-            saveSlot.textContent = `Save Slot ${index + 1}`;
-
-            // Add click event to load the selected save
-            saveSlot.addEventListener("click", () => {
-                loadSaveSlot(index);
-                loadTextContent(index); // Load text content as well
-            });
-
-            saveSlotsContainer.appendChild(saveSlot);
-        });
-    }
-
-    // Function to save the game into a specific slot
-    function saveGameSlot(slotIndex) {
-        try {
-            let savedSlots = JSON.parse(window.localStorage.getItem('save-slots')) || [];
-            let currentState = story.state.toJson(); // Replace with your actual method to get the serialized state
-
-            savedSlots[slotIndex] = currentState;
-            window.localStorage.setItem('save-slots', JSON.stringify(savedSlots));
-
-            console.log(`Game saved to Slot ${slotIndex + 1}`);
-        } catch (e) {
-            console.debug("Couldn't save game state");
-        }
-    }
-
-    // Function to load the game from a specific save slot
-    function loadSaveSlot(slotIndex) {
-        try {
-            let savedSlots = JSON.parse(window.localStorage.getItem('save-slots')) || [];
-
-            if (slotIndex >= 0 && slotIndex < savedSlots.length) {
-                let savedState = savedSlots[slotIndex];
-                // Replace the following line with your actual method to load the game state
-                console.log(`Loading game from Save Slot ${slotIndex + 1} - State: ${savedState}`);
-            }
-        } catch (e) {
-            console.debug("Couldn't load save state");
-        }
-    }
-
-    // Function to load text content from a specific save slot
-    function loadTextContent(slotIndex) {
-        try {
-            let savedSlots = JSON.parse(window.localStorage.getItem('save-slots')) || [];
-
-            if (slotIndex >= 0 && slotIndex < savedSlots.length) {
-                let textContent = savedSlots[slotIndex].textContent;
-
-                // Replace the following line with your actual method to set the text content
-                textContainer.textContent = textContent;
-                console.log(`Text content loaded from Save Slot ${slotIndex + 1}`);
-            }
-        } catch (e) {
-            console.debug("Couldn't load text content");
-        }
-    }
-
-    // Render initial save slots
-    renderSaveSlots();
-});
 
 
 
@@ -524,7 +395,262 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
 	
-	}
+	let currentSlotIndex = 0;
+	let dummySlotClicked = localStorage.getItem('dummySlotClicked') === 'true' || false;
+	let savedSlots = JSON.parse(window.localStorage.getItem('save-slots')) || [];
+	let selectedSaveIndex = null;
+    const saveSlotsContainer = document.getElementById("saveSlotsContainer");
+    const saveButton = document.getElementById("saveButton");
+    const loadButton = document.getElementById("loadButton");
+	const deleteSelectedSaves = document.getElementById("deletebutton");
+	const saveSlotsContainerLoad = document.getElementById("saveSlotsContainerLoad");
+    saveButton.addEventListener("click", function() {
+        // Replace 0 with the desired slot index
+      if (selectedSaveIndex !== null) {
+    const savingToNewSlot = selectedSaveIndex !== currentSlotIndex;
+    saveGameSlot(selectedSaveIndex);
+    if (savingToNewSlot) {
+		removeNullFromArray(savedSlots);
+        dummySlotClicked = false;
+        localStorage.setItem('currentSlotIndex', currentSlotIndex);
+        localStorage.setItem('dummySlotClicked', dummySlotClicked);
+    }
+
+    renderSaveSlots();
+
+    }
+    });
+
+    loadButton.addEventListener("click", function() {
+        // Replace 0 with the desired slot index
+		if (selectedSaveIndex !== null){
+        loadSaveSlot(selectedSaveIndex);
+		hideAllPages();
+		page1.classList.add("show");
+		document.querySelector('.outerContainer').style.overflowY = 'auto';
+		}
+    });
+deleteSelectedSaves.addEventListener("click", function() {
+         if (selectedSaveIndex !== null) {
+		let savedSlots = JSON.parse(window.localStorage.getItem('save-slots')) || [];
+        console.log("Before deletion:", savedSlots);
+
+        // Create a new array excluding the selected save
+        const updatedSlots = savedSlots.filter((_, index) => index !== selectedSaveIndex);
+
+        console.log("After deletion:", updatedSlots);
+
+        // Update localStorage with the modified array
+        window.localStorage.setItem('save-slots', JSON.stringify(updatedSlots));
+
+        // Update savedSlots with the modified array
+        savedSlots = updatedSlots;
+
+        // Reset currentSlotIndex if needed
+       currentSlotIndex = Math.max(currentSlotIndex - 1, 0);
+
+        // Clear the selected save index
+        selectedSaveIndex = null;
+
+        // Render the updated save slots only if there are remaining saves
+        renderSaveSlots();
+    }
+    localStorage.setItem('currentSlotIndex', currentSlotIndex);
+});
+
+
+    // Function to render save slots
+function renderSaveSlots() {
+    saveSlotsContainer.innerHTML = ""; // Clear previous slots
+    let savedSlots = JSON.parse(window.localStorage.getItem('save-slots')) || [];
+
+// Add a dummy slot
+   const dummySaveSlot = document.createElement("div");
+    dummySaveSlot.classList.add("save-slot");
+    const dummySaveInfo = document.createElement("div");
+    dummySaveInfo.classList.add("save-info");
+    const dummyParagraph = document.createElement("p");
+    dummyParagraph.textContent = "NEW SAVE";
+    dummySaveInfo.appendChild(dummyParagraph);
+    dummySaveSlot.appendChild(dummySaveInfo);
+let dummySlotClicked = false;
+
+dummySaveSlot.addEventListener("click", () => {
+    // Handle the click event for the dummy slot only if it hasn't been clicked before
+	
+    if (!dummySlotClicked) {
+		selectedSaveIndex = currentSlotIndex;
+        dummySlotClicked = true;	
+        // Increment currentSlotIndex so that the next save will be in a new slot
+		currentSlotIndex++;
+		// Store values in localStorage
+        localStorage.setItem('currentSlotIndex', currentSlotIndex);
+        localStorage.setItem('dummySlotClicked', dummySlotClicked);
+		
+    }
+    });
+    saveSlotsContainer.appendChild(dummySaveSlot);
+
+console.log("Saved slots:", savedSlots);
+ savedSlots.forEach((save, index) => {
+const saveSlot = document.createElement("div");
+saveSlot.classList.add("save-slot");
+
+
+const saveInfo = document.createElement("div");
+saveInfo.classList.add("save-info");
+
+const slotParagraph = document.createElement("p");
+slotParagraph.textContent = `Slot: ${index + 1}`;
+
+const levelParagraph = document.createElement("p");
+levelParagraph.textContent = `Level: ${save.currentLevel}`;
+levelParagraph.classList.add("level"); // Add a class for styling
+
+const locationParagraph = document.createElement("p");
+locationParagraph.textContent = `Location: ${save.currentLocation}`;
+locationParagraph.classList.add("location"); // Add a class for styling
+let saveSlots = document.querySelectorAll('.save-slot');
+
+// Function to remove the 'selectedSlot' class from all saveSlots
+function clearSelectedSlots() {
+    saveSlots.forEach(slot => {
+        slot.classList.remove('selectedSlot');
+    });
+}
+// Append the paragraphs to the save-info div
+		saveInfo.appendChild(slotParagraph);
+		saveInfo.appendChild(levelParagraph);
+		saveInfo.appendChild(locationParagraph);
+        // Add click event to load the selected save
+        saveSlot.addEventListener("click", () => {
+			 clearSelectedSlots();
+			 console.log("Clicked saveSlot at index:", index);
+             selectedSaveIndex = index;
+			 saveSlot.classList.add('selectedSlot');
+			 if(dummySlotClicked){
+			 dummySlotClicked = false;
+			 currentSlotIndex -= 1
+			 }
+        });
+		saveSlot.appendChild(saveInfo);
+
+        saveSlotsContainer.appendChild(saveSlot);
+    });
+}
+
+
+
+    // Function to save the game into a specific slot
+	
+function saveGameSlot(currentSlotIndex) {
+    try {
+        let savedSlots = JSON.parse(window.localStorage.getItem('save-slots')) || [];
+        let currentState = story.state.toJson();
+        console.log("Selected paragraphs and images:", document.querySelectorAll('#story p, #story img'));
+        let elementsData = [];
+
+        document.querySelectorAll('#story p, #story img').forEach((element, index) => {
+            if (element.tagName === 'P') {
+                console.log(`Content of paragraph ${index + 1}:`, element.textContent);
+                elementsData.push({ type: 'paragraph', content: element.textContent });
+            } else if (element.tagName === 'IMG') {
+                console.log(`Source of image ${index + 1}:`, element.src);
+                elementsData.push({ type: 'image', source: element.src });
+            }
+        });
+
+        console.log("Saved elements data:", elementsData);
+        // Save paragraph content and image sources in your savedSlots or any other data structure
+        savedSlots[currentSlotIndex] = {
+            state: currentState,
+            elements: elementsData,
+            currentLevel: currentLevel,
+            currentLocation: currentLocation,
+        };
+
+        window.localStorage.setItem('save-slots', JSON.stringify(savedSlots));
+        console.log(`Game saved to Slot ${currentSlotIndex + 1}`);
+    } catch (e) {
+        console.error("Couldn't save game state", e);
+    }
+}
+
+
+    // Function to load the game from a specific save slot
+function loadSaveSlot(currentSlotIndex) {
+    try {
+        let savedSlots = JSON.parse(window.localStorage.getItem('save-slots')) || [];
+
+        if (currentSlotIndex >= 0 && currentSlotIndex < savedSlots.length) {
+            let savedData = savedSlots[currentSlotIndex];
+
+            if (savedData && savedData.elements) { // Ensure 'elements' property is defined
+                let savedState = savedData.state;
+                let elementsData = savedData.elements;
+
+                // Log the loaded state and elements data for debugging
+                console.log("Loaded state:", savedState);
+                console.log("Loaded elements data:", elementsData);
+
+                // Restore the state and create new elements within the 'story' div
+				let imageContainer = document.getElementById("story");
+                story.state.LoadJson(savedState);
+                removeAll("p");
+				imageContainer.querySelectorAll("img").forEach(img => img.remove());
+                removeAll(".choice");
+                recreateElements(elementsData);
+
+                // Assuming you have a function to continue the story
+                continueStory(true);
+
+                console.log(`Loaded game from Save Slot ${currentSlotIndex + 1}`);
+            } else {
+                console.error(`Invalid save data structure in slot ${currentSlotIndex}`);
+            }
+        } else {
+            console.error(`Invalid save slot index: ${currentSlotIndex}`);
+        }
+    } catch (e) {
+        console.error("Couldn't load save state", e);
+    }
+}
+
+// Function to create new <p> elements based on saved content
+function recreateElements(elementsData) {
+    elementsData.forEach((elementData) => {
+        if (elementData.type === 'paragraph') {
+            // Create and append new <p> elements
+            createParagraph(elementData.content);
+        } else if (elementData.type === 'image') {
+            // Create and append new <img> elements
+            createImage(elementData.source);
+        }
+        // Add logic for other types if needed
+    });
+}
+
+// Example function to create a new paragraph element
+function createParagraph(content) {
+    let paragraph = document.createElement("p");
+    paragraph.textContent = content;
+    document.getElementById("story").appendChild(paragraph);
+}
+
+// Example function to create a new image element
+function createImage(source) {
+    let image = document.createElement("img");
+    image.src = source;
+    document.getElementById("story").appendChild(image);
+}
+
+// Example function to remove elements by selector
+function removeAll(selector) {
+    let elements = document.querySelectorAll(selector);
+    elements.forEach((element) => element.remove());
+}
+
+	
 	// Get references to the buttons using their IDs
 	var btnShowPage1 = document.getElementById("scenetab");
 	var btnShowPage2 = document.getElementById("statstab");
@@ -532,6 +658,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	var btnShowPage4 = document.getElementById("inventorytab");
 	var btnShowPage5 = document.getElementById("spellstab");
 	var btnShowPage6 = document.getElementById("savetab");
+
 
 	// Get references to the page div elements using their IDs
 	var page1 = document.getElementById("story");
@@ -542,46 +669,73 @@ document.addEventListener("DOMContentLoaded", function () {
 	var page6 = document.getElementById("save");
 
 
+
+
 	// Define event listeners and their corresponding actions
 	btnShowPage1.addEventListener("click", function() {
 	hideAllPages();
-	page1.style.display = "block";
+	page1.classList.add("show");
+	document.querySelector('.outerContainer').style.overflowY = 'auto';
 	});
 
 	btnShowPage2.addEventListener("click", function() {
 	hideAllPages();
-	page2.style.display = "block";
+	document.querySelector('.outerContainer').scrollTop = 0;
+	page2.classList.add("show");
 	});
 
 	btnShowPage3.addEventListener("click", function() {
 	hideAllPages();
-	page3.style.display = "block";
+	document.querySelector('.outerContainer').scrollTop = 0;
+	page3.classList.add("show");
 	})
 	btnShowPage4.addEventListener("click", function() {
 	hideAllPages();
-	page4.style.display = "block";
+	document.querySelector('.outerContainer').scrollTop = 0;
+	page4.classList.add("show");
 	});
 
 	btnShowPage5.addEventListener("click", function() {
 	hideAllPages();
-	page5.style.display = "block";
+	document.querySelector('.outerContainer').scrollTop = 0;
+	page5.classList.add("show");
 	});
 
 	btnShowPage6.addEventListener("click", function() {
 	hideAllPages();
-	page6.style.display = "block";
-  
+	renderSaveSlots();
+	document.querySelector('.outerContainer').scrollTop = 0;
+	page6.classList.add("show");
 
 	});
+	
+  
 
+
+//Remove Null saves
+function removeNullFromArray(savedSlots) {
+    // Get the count of slots with null or undefined state before filtering
+    const nullStateRemovedCount = savedSlots.filter(slot => slot.state === null || slot.state === undefined).length;
+
+    // Use filter to create a new array without slots with null or undefined state
+    savedSlots = savedSlots.filter(slot => slot.state !== null && slot.state !== undefined);
+
+    // Save the updated array to localStorage
+
+    // Additional actions after removing slots with null or undefined state
+    renderSaveSlots();
+    currentSlotIndex = Math.max(0, currentSlotIndex - nullStateRemovedCount);
+}
 	// Function to hide all page div elements
 	function hideAllPages() {
-	page1.style.display = "none";
-	page2.style.display = "none";
-	page3.style.display = "none";
-	page4.style.display = "none";
-	page5.style.display = "none";
-	page6.style.display = "none";
+	page1.classList.remove("show");
+	page2.classList.remove("show");
+	page3.classList.remove("show");
+	page4.classList.remove("show");
+	page5.classList.remove("show");
+	page6.classList.remove("show");
+	document.querySelector('.outerContainer').style.overflowX = 'hidden';
+	document.querySelector('.outerContainer').style.overflowY = 'hidden';
 	};
 	
 	// Stats
@@ -614,7 +768,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			else if (variableValue < 19 ){document.getElementById("DexterityComment").innerText = "Graceful"}
 			else if (variableValue === 20 ){document.getElementById("DexterityComment").innerText = "Swift as a River"}
 		});
-		story.ObserveVariable("consitution", function(variableName, variableValue){
+		story.ObserveVariable("constitution", function(variableName, variableValue){
 			document.getElementById("ConstitutionNum").innerText = variableValue
 		if (variableValue === 1) {document.getElementById("ConstitutionComment").innerText = "Anemic."}
 			else if (variableValue < 3) {document.getElementById("ConstitutionComment").innerText = "Frail."}
@@ -672,19 +826,22 @@ document.addEventListener("DOMContentLoaded", function () {
 			else if (variableValue === 20 ){document.getElementById("CharismaComment").innerText = "Renowned"}
 		});
 	//Status Bars
+		let currentLocation = "Nowhere"
+		let currentLevel = 1;
 		let currentHp = 0;
 		let maxHp = 0;
-		let currentWill = 0;
+		let will = 0;
 		let maxWill = 0;
-		let currentLust =0;
+		let lust =0;
 		let maxLust = 100;
 		let currentXp= 0;
 		let needXp= 0;
+	    let Attack_Mod = 0
+		let hasWings = false;
+		let hasMagic = false;
 		function percent(x,y){
 			return (x/y)*100;
 		};
-		
-		 
 		story.ObserveVariable("health", function(variableName, newValue) {
 			currentHp = newValue;	
 			document.getElementById("healthNum").innerText = currentHp + " / "+ maxHp;
@@ -694,6 +851,29 @@ document.addEventListener("DOMContentLoaded", function () {
 		story.ObserveVariable("maxHealth", function(variableName, newValue) {
 			maxHp = newValue;
 		});
+		
+		story.ObserveVariable("will", function(variableName, newValue) {
+			will = newValue;	
+			document.getElementById("willNum").innerText = will + " / "+ maxWill;
+			const willPercent = percent(will,maxWill);
+			document.getElementById("willBar").style.width = `${willPercent}%`;
+		});
+		story.ObserveVariable("maxWill", function(variableName, newValue) {
+			maxWill = newValue;
+		});
+		
+		story.ObserveVariable("lust", function(variableName, newValue) {
+			lust = newValue;
+			document.getElementById("libidoNum").innerText = lust + " / "+ maxLust;
+			const lustPercent = percent(lust,maxLust);
+			document.getElementById("libidoBar").style.width = `${lustPercent}%`;
+		});
+		story.ObserveVariable("maxWill", function(variableName, newValue) {
+			maxWill = newValue;
+		});
+		
+		
+		
 		story.ObserveVariable("xp", function(variableName, newValue) {
 			currentXp = newValue;
 			document.getElementById("xpNum").innerText = currentXp + " / "+ needXp;
@@ -708,7 +888,9 @@ document.addEventListener("DOMContentLoaded", function () {
     var slider = document.getElementById('volumeSlider');
     slider.style.display = slider.style.display === 'none' ? 'block' : 'none';
 });
-
+document.getElementById('creditsbutton').addEventListener('click', function() {
+	audio.pause();
+});
 	document.getElementById('volumeSlider').addEventListener('input', function(e) {
     var volume = e.target.value;
     document.getElementById('myAudio').volume = volume;
@@ -732,148 +914,352 @@ document.addEventListener("DOMContentLoaded", function () {
         isImageOne = !isImageOne; // Toggle the flag
     });
 
+story.ObserveVariable("level", function(variableName, newValue) {
+			currentLevel = newValue;	
+		});
+story.ObserveVariable("location", function(variableName, newValue) {
+			currentLocation = newValue;	
+		});
+story.ObserveVariable("lust", function(variableName, newValue) {
+			lust = newValue;	
+		});
+story.ObserveVariable("will", function(variableName, newValue) {
+			will = newValue;	
+		});
+	
 
-  let allowClick = true; // Flag to control whether clicks are allowed
-
-  function shuffle(array) {
-    let currentIndex = array.length, randomIndex;
-    while (currentIndex !== 0) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-
-      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+story.BindExternalFunction("willHarm", (x) => {
+    will -= Math.round(x * ((lust / 100) + 1));
+	
+	if (will < 0) {
+        will = 0;
     }
+	story.variablesState["will"] = will
 
-    return array;
+});
+
+//Enemy Combat Stats
+		let enemyCurrentWill = 0;
+		let enemyCurrentLust =0;
+
+story.ObserveVariable("enemyCurrentLust", function(variableName, newValue) {
+			enemyCurrentLust = newValue;	
+		});
+story.ObserveVariable("enemyCurrentWill", function(variableName, newValue) {
+			enemyCurrentWill = newValue;	
+		});
+
+	    story.ObserveVariable("enemyCurrentHP", function(variableName, newValue) {
+			enemyCurrentHP = newValue;	
+		});
+
+story.ObserveVariable("Attack_Mod", function(variableName, newValue) {
+			Attack_Mod = newValue;	
+		});	    
+		
+ 
+		
+story.BindExternalFunction("enemywillHarm", (x) => {
+       enemyCurrentWill -= Math.round(x * ((enemyCurrentLust / 100) + 1));
+   if (enemyCurrentWill < 0) {
+        enemyCurrentWill = 0; 
+    }
+	story.variablesState["enemyCurrentWill"] = enemyCurrentWill
+
+});
+
+
+function calculateDamage(damage) {
+  if (damage) {
+    const parts = damage.split('d');
+    if (parts.length === 2) {
+      const numDice = parseInt(parts[0], 10);
+      const sides = parseInt(parts[1], 10);
+      let total = 0;
+      for (let i = 0; i < numDice; i++) {
+        total += rollDie(sides);
+      }
+      return total;
+    }
+    // Check for additional fixed amount (e.g., +2)
+    const fixedAmount = parseInt(damage.split('+')[1], 10);
+    if (!isNaN(fixedAmount)) {
+      return fixedAmount;
+    }
+  }
+  return 0;
+}
+
+//INVENTORY SYSTEM
+  function createButton(text, onClick) {
+    const button = document.createElement('button');
+    button.textContent = text;
+    button.addEventListener('click', onClick);
+    return button;
   }
 
-  function createCardImagesArray() {
-    const images = [
-      'IMAGE/Flipgame/Divination.png',
-      'IMAGE/Flipgame/Abjuration.png',
-      'IMAGE/Flipgame/Enchantment.png',
-      'IMAGE/Flipgame/Necromancy.png',
-      'IMAGE/Flipgame/Illusion.png',
-      'IMAGE/Flipgame/Conjuration.png',
-      'IMAGE/Flipgame/Evocation.png',
-      'IMAGE/Flipgame/Transmutation.png'
-    ];
-    return [...images, ...images];
-  }
+   const inventory = [];
 
-  function initializeGame() {
-    const cardImages = shuffle(createCardImagesArray());
-    const gameBoard = document.getElementById('game-board');
+  function updateInventoryUI() {
+    const itemsList = document.getElementById('items');
+    itemsList.innerHTML = '';
 
-    cardImages.forEach(image => {
-      const card = document.createElement('div');
-      card.classList.add('card');
-      card.style.backgroundImage = `url('IMAGE/Flipgame/blank.png')`;
-      card.setAttribute('data-image', image); // Store the image path as a data attribute
-      card.addEventListener('click', handleCardClick);
-      gameBoard.appendChild(card);
+    inventory.forEach((item, index) => {
+      const li = document.createElement('li');
+
+      // Add an image to the item
+      const img = document.createElement('img');
+      img.src = item.imageSrc; // Replace with the actual image source
+      li.appendChild(img);
+
+      // Display item information
+      const nameSpan = document.createElement('span');
+      nameSpan.textContent = item.name;
+      li.appendChild(nameSpan);
+
+      const descriptionSpan = document.createElement('span');
+      descriptionSpan.textContent = item.description;
+      li.appendChild(descriptionSpan);
+
+      // Add "Sell" and "Equip" buttons
+      const sellButton = createButton('Drop', () => sellItem(item));
+	  const equipButton = createButton('Equip', () => equipItem(item));
+	  const useButton = createButton('Use', () => performItemAction(item));
+      // Conditionally add "Equip" button for items that can be equipped
+	
+
+      // Display quantity next to the buttons
+      const quantitySpan = document.createElement('span');
+      quantitySpan.textContent = `${item.quantity}`;
+
+      li.appendChild(quantitySpan);
+
+	  if (item.canEquip) {
+      li.appendChild(equipButton);
+    }
+	if (item.hasAction) {
+      li.appendChild(useButton);
+    }
+	if (item.isDroppable){
+	  li.appendChild(sellButton);
+	}
+	  itemsList.appendChild(li);
+	  
+	  if (item.quantity === 0) {
+      unequipItem(item);
+    }
     });
   }
 
-  function handleCardClick() {
-    // Check if clicking is allowed
-    if (!allowClick || this.classList.contains('selected')) {
-      return;
-    }
 
-    this.classList.add('selected');
-    this.style.backgroundImage = `url(${this.getAttribute('data-image')})`; // Reveal the image
-
-    const selectedCards = document.querySelectorAll('.card.selected');
-
-    if (selectedCards.length === 2) {
-      allowClick = false; // Disable clicking while checking for a match
-      setTimeout(() => {
-        checkMatch();
-        allowClick = true; // Re-enable clicking after checking for a match
-      }, 1000);
-    }
-  }
-
-	
-  function checkMatch() {
-    const selectedCards = document.querySelectorAll('.card.selected');
-
-    if (selectedCards.length === 2) {
-      const [firstCard, secondCard] = selectedCards;
-
-      if (firstCard.getAttribute('data-image') === secondCard.getAttribute('data-image')) {
-        // Hide the matching cards
-        selectedCards.forEach(card => {
-          card.classList.add('hidden');
-          card.classList.remove('selected');
-        });
-
-        // Check if all cards are hidden
-        if (document.querySelectorAll('.card.hidden').length === selectedCards.length * 8) {
-          alert('Congratulations! Memory game solved.');
-          // Perform additional actions or trigger events here
-        } else {
-					healDamage(1);
-        }
-      } else {
-        // Reset the non-matching cards to the blank image
-		  console.log("Current Health: " + story.variablesState["health"]);
-		 dealDamage(1);
-		  console.log("Current Health: " + story.variablesState["health"]);
-        selectedCards.forEach(card => {
-          card.classList.remove('selected');
-          card.style.backgroundImage = 'url(IMAGE/Flipgame/blank.png)';
-
-        });
-      }
-    }
-  }
-
-function dealDamage(x){
-		 story.variablesState["health"] -= x;
-	}
-function healDamage(x) {
-  story.variablesState["health"] += x;
   
-  // Check if health exceeds maxHp and reset to maxHp if necessary
-  if (story.variablesState["health"] > story.variablesState["maxHealth"]) {
-    story.variablesState["health"] = story.variablesState["maxHealth"];
-	}	
+function addItemToInventory(item) {
+  const existingItemIndex = inventory.findIndex(existingItem => existingItem.name === item.name);
+
+  if (existingItemIndex !== -1) {
+    // If the item already exists, increase the quantity
+    inventory[existingItemIndex].quantity += item.quantity;
+  } else {
+    // If the item doesn't exist, add a new object with the same properties to the inventory
+    inventory.push({ ...item });
+  }
+
+  updateInventoryUI();
 }
-	
-  window.addEventListener('load', initializeGame);
+
+function removeItemFromInventory(itemToRemove) {
+  const indexToRemove = inventory.findIndex(item => item.name === itemToRemove.name);
+  if (indexToRemove !== -1) {
+    inventory.splice(indexToRemove, 1);
+    updateInventoryUI();
+  }
+}
+
+function sellItem(item) {
+  // Decrease the quantity of the item in the inventory
+  const existingItemIndex = inventory.findIndex(existingItem => existingItem.name === item.name);
+
+  if (existingItemIndex !== -1) {
+    if (inventory[existingItemIndex].quantity > 1) {
+      // If the quantity in the inventory is greater than 1, decrement it
+      inventory[existingItemIndex].quantity--;
+    } else {
+      // If the quantity in the inventory is 1 or less, remove the item from the inventory
+      inventory.splice(existingItemIndex, 1);
+
+      // Call a function to unequip the item if it was removed from inventory
+      unequipItem(item);
+    }
+
+    // Update the UI for the inventory
+    updateInventoryUI();
+  }
+
+  // Add logic for selling item
+  console.log(`Sold ${item.name} for some currency.`);
+}
+
+const equippedItems = [];
+let currentItem;
+function equipItem(item) {
+	currentItem = item;
+  // Check if the item is not already equipped
+  const isItemEquipped = equippedItems.some(equippedItem => equippedItem.name === item.name);
+
+  if (!isItemEquipped) {
+    // Check if there is already an item with damage equipped
+    const hasDamageItemEquipped = equippedItems.some(equippedItem => equippedItem.damage !== undefined);
+
+    if (hasDamageItemEquipped) {
+      // Unequip the item with damage before equipping the new one
+      const itemToUnequip = equippedItems.find(equippedItem => equippedItem.damage !== undefined);
+      unequipItem(itemToUnequip);
+    }
+
+    // Find the corresponding item in the inventory
+    const inventoryItemIndex = inventory.findIndex(inventoryItem => inventoryItem.name === item.name);
+
+    if (inventoryItemIndex !== -1) {
+      // Reference the item from the inventory and add it to the equipped items without decreasing the quantity
+      const inventoryItem = inventory[inventoryItemIndex];
+      equippedItems.push({ ...inventoryItem, quantity: 1 });
+
+      // Update UI for both inventory and equipped items
+      updateInventoryUI();
+      updateEquippedItemsUI();
+	  
+	        // Calculate damage for the newly equipped item
+      const damageAmount = calculateDamage(item.damage);
+      console.log(`Equipped ${item.name}. Damage: ${damageAmount}`);
+    } else {
+      console.log(`Item ${item.name} not found in inventory.`);
+    }
+  } else {
+    console.log(`${item.name} is already equipped.`);
+  }
+}
+
+function updateEquippedItemsUI() {
+  const equippedItemsList = document.getElementById('equippedItems');
+  equippedItemsList.innerHTML = '';
+
+  equippedItems.forEach((equippedItem, index) => {
+    const li = document.createElement('li');
+
+    // Add an image to the equipped item
+    const img = document.createElement('img');
+    img.src = equippedItem.imageSrc; // Replace with the actual image source
+    li.appendChild(img);
+
+    // Display equipped item information
+    const nameSpan = document.createElement('span');
+    nameSpan.textContent = equippedItem.name;
+    li.appendChild(nameSpan);
+
+    const descriptionSpan = document.createElement('span');
+    descriptionSpan.textContent = equippedItem.description;
+    li.appendChild(descriptionSpan);
+
+    // Display an "Unequip" button
+
+
+    const unequipButton = createButton('Unequip', () => unequipItem(equippedItem));
+    li.appendChild(unequipButton);
+
+    equippedItemsList.appendChild(li);
+  });
+}
+
+function unequipItem(item) {
+  const indexToRemove = equippedItems.findIndex(equippedItem => equippedItem.name === item.name);
+
+  if (indexToRemove !== -1) {
+    equippedItems.splice(indexToRemove, 1);
+    updateEquippedItemsUI(); // Update the UI for the equipped items
+  }
+}
+
+
+function performItemAction(item) {
+    // Add logic here for the action of the item
+const existingItemIndex = inventory.findIndex(existingItem => existingItem.name === item.name);
+
+  if (existingItemIndex !== -1) {
+    if (inventory[existingItemIndex].quantity > 1) {
+      // If the quantity in the inventory is greater than 1, decrement it
+      inventory[existingItemIndex].quantity--;
+    } else {
+      // If the quantity in the inventory is 1 or less, remove the item from the inventory
+      inventory.splice(existingItemIndex, 1);
+
+      // Call a function to unequip the item if it was removed from inventory
+      unequipItem(item);
+    }
+
+    // Update the UI for the inventory
+    updateInventoryUI();
+  }
+    if (item.name === 'Health Potion') {
+        // Assuming healthPotion heals by 20, you can set it to any value
+        const healingAmount = Math.floor(Math.random() * 4 + 1) + Math.floor(Math.random() * 4 + 1);
+        currentHp += healingAmount+2;
+
+        // Ensure health doesn't exceed the maximum value, e.g., 100
+        currentHp = Math.min(currentHp, 100);
+
+        console.log(`${item.name} has been used. Health +${healingAmount}. Current Health: ${currentHp}`);
+    } else {
+        console.log(`${item.name} has been used for its special action.`);
+    }
+}
+
+
+function createItem(name, description, quantity, imageSrc, canEquip = false, hasAction = false, isDroppable = true, damage = null) {
+  return { name, description, quantity, imageSrc, canEquip, hasAction, isDroppable, damage };
+}
+
+// Example usage
+const sword = createItem('Sword', 'Deals slashing damage', 1, 'sword.png', true, '1d6');
+const shield = createItem('Shield', 'Provides additional defense', 1, 'IMAGE/Items/Shield/tile091.png', true);
+const healthPotion = createItem('Health Potion', 'Restores health', 1, 'IMAGE/Items/Potions/tile016.png', false, true);
+const javelin = createItem('Javelin', 'Deals pieceing damage', 1, 'sword.png', true, '1d6');
+const hooves = createItem('Hooves', 'Your goddess given right', 1, 'IMAGE/Items/Weapons/tile131.png', true, false, false, '1d4');
+const wings = createItem('Wings', 'You use these to fly', 1, 'IMAGE/Items/Weapons/wing.png', true, false, false, '1d4');
+const magic = createItem('Magic', 'Power from the Unknown', 1, 'IMAGE/Items/Weapons/562.png', true, false, false, '1d4');
+
+addItemToInventory(hooves);
+equipItem(hooves);
+
+// Function to parse and calculate damage based on the provided damage object
+
+story.ObserveVariable("hasWings", function(variableName, newValue) {
+			hasWings = newValue;
+			addItemToInventory(wings);
+			
+		});	   
+
+story.ObserveVariable("hasMagic", function(variableName, newValue) {
+			hasMagic = newValue;
+			addItemToInventory(magic);
+			unequipItem(hooves)
+			equipItem(magic);
+		});	 
   
-      // Initialize the Web Audio API
-    var audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
-    // Function to play the damage sound effect
-    function playDamageSound() {
-        var damageSound = audioContext.createBufferSource();
-        var request = new XMLHttpRequest();
-        request.open('GET', 'Music\soundeffects\Fist Hit B.wav', true);
-        request.responseType = 'arraybuffer';
+story.BindExternalFunction("enemyHarm", (x) => {
+	const damageAmount = calculateDamage(currentItem.damage);
+  if (x < 0) {
+    // Calculate damage based on currentItem.damage
+    const damageAmount = calculateDamage('+1');
+    enemyCurrentHP = enemyCurrentHP - damageAmount + Attack_Mod;
+  } else {
+    enemyCurrentHP = enemyCurrentHP - calculateDamage(currentItem.damage) + Attack_Mod;
+  }
+console.log(`You delt ${damageAmount+Attack_Mod} damage.`);
+  if (enemyCurrentHP < 0) {
+    enemyCurrentHP = 0;
+  }
 
-        request.onload = function () {
-            audioContext.decodeAudioData(request.response, function (buffer) {
-                damageSound.buffer = buffer;
-                damageSound.connect(audioContext.destination);
-                damageSound.start(0);
-            });
-        };
-
-        request.send();
-    }
-story.ObserveVariable("health", function(newValue, oldValue) {
-    if (newValue !== oldValue && !(newValue > oldValue)) {
-        playDamageSound();
-    }
+  story.variablesState["enemyCurrentHP"] = enemyCurrentHP;
 });
-
-// Function to play background music
-function playBackgroundMusic() {
-    var backgroundMusic = document.getElementById("MyAudio");
-    backgroundMusic.play();
-}
-
-})(storyContent);
+}})(storyContent);
